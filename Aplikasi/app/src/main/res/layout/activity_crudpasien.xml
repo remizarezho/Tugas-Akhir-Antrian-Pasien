@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".crudpasien">
+
+    <TextView
+        android:id="@+id/tambahdatapasien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Tambah Data Pasien"
+        android:textSize="35dp" />
+
+    <Button
+        android:id="@+id/btntambahpasien"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tambahdatapasien"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Tambah Data Pasien"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnkempas"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/btntambahpasien"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Kembali"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>

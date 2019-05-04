@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="numbers">
+        <item>
+            Ruang Umum
+        </item>
+        <item>
+            Ruang Pemeriksaan Gigi
+        </item>
+        <item>
+            Ruang Imunisasi
+        </item>
+    </string-array>
+</resources>

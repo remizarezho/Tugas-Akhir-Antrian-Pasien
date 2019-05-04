@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "769500406818",
+    "firebase_url": "https://aplikasi-3f592.firebaseio.com",
+    "project_id": "aplikasi-3f592",
+    "storage_bucket": "aplikasi-3f592.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769500406818:android:3cec2129097589a0",
+        "android_client_info": {
+          "package_name": "com.example.tugasakhirantrianpasien"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769500406818-r0civ8nrhnhgtis35mut11cdbg84mm4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tugasakhirantrianpasien",
+            "certificate_hash": "b7888870163578d3c61fa9388ee4b1c4ce5a7957"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo6diyZIpdKrf0eFckK-QbMxsiAoGGEwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769500406818-padm6m9l4405pmvg9k1f3uh8baiqdr3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
