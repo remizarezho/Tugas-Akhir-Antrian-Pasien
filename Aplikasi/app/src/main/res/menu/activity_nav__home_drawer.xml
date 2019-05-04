@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_jadwal"
             android:icon="@drawable/ic_insert_invitation_black_24dp"
-            android:title="Jadwal" />
+            android:title="Pendaftaran" />
         <item
             android:id="@+id/nav_poli"
             android:icon="@drawable/ic_local_hospital_black_24dp"
@@ -23,7 +23,7 @@
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="Information" />
+            android:title="Informasi" />
 
     </group>
 

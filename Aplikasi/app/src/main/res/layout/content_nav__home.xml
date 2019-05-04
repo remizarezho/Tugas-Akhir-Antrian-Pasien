@@ -12,6 +12,14 @@
     tools:context=".Nav_Home"
     tools:showIn="@layout/app_bar_nav__home">
 
+    <TextView
+        android:id="@+id/judul_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="JUDUL LEVEL"
+        android:textAlignment="center"
+        android:textSize="25dp"/>
+
     <LinearLayout
         android:clipToPadding="false"
         android:gravity="center"
@@ -58,6 +66,7 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
+            android:id="@+id/home_poliklinik"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="160dp"
@@ -89,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Pilih Poliklinik"
+                    android:text="List Poliklinik"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 

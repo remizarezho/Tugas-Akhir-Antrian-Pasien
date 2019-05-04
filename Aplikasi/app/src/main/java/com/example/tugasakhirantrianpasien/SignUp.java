@@ -37,6 +37,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private EditText editNamaPasien;
     private EditText editTglLahir;
     private EditText editAlamat;
+    private EditText editNoTlp;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -54,6 +55,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         editNamaPasien = findViewById(R.id.nama_pasien);
         editTglLahir = findViewById(R.id.tgl_lahir);
         editAlamat = findViewById(R.id.alamat_pasien);
+        editNoTlp = findViewById(R.id.tlp_pasien);
         editTextEmail = findViewById(R.id.email_signup);
         editPassword1 = findViewById(R.id.password1);
         editPassword2 = findViewById(R.id.password2);
@@ -88,47 +90,54 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         final String nama_pasien = editNamaPasien.getText().toString().trim();
         final String tgl_lahir = editTglLahir.getText().toString().trim();
         final String alamat_pasien = editAlamat.getText().toString().trim();
+        final String no_telpon = editNoTlp.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         final String password = editPassword1.getText().toString().trim();
 
         if (no_ktp.isEmpty()) {
-            editNoKtp.setError("NIK is required!");
+            editNoKtp.setError("Wajib diisi!");
             editNoKtp.requestFocus();
             return;
         }
 
         if (nama_pasien.isEmpty()) {
-            editNamaPasien.setError("Name is required!");
+            editNamaPasien.setError("Wajib diisi!");
             editNamaPasien.requestFocus();
             return;
         }
 
         if (tgl_lahir.isEmpty()) {
-            editTglLahir.setError("Birthday is required!");
+            editTglLahir.setError("Wajib diisi");
             editTglLahir.requestFocus();
             return;
         }
 
         if (alamat_pasien.isEmpty()) {
-            editAlamat.setError("Address is required!");
+            editAlamat.setError("Wajib diisi!");
             editAlamat.requestFocus();
             return;
         }
 
+        if (no_telpon.isEmpty()) {
+            editNamaPasien.setError("Wajib diisi!");
+            editNamaPasien.requestFocus();
+            return;
+        }
+
         if (email.isEmpty()) {
-            editTextEmail.setError("Email is required!");
+            editTextEmail.setError("Wajib diisi!");
             editTextEmail.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please enter a valid email!");
+            editTextEmail.setError("Wajib membuat email");
             editTextEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            editPassword1.setError("Password is required!");
+            editPassword1.setError("Wajib diisi!");
             editPassword1.requestFocus();
             return;
         }
@@ -140,7 +149,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         }
 
         if (!password.equals(editPassword2.getText().toString())){
-            editPassword2.setError("Password isn't match!");
+            editPassword2.setError("Password tidak sama!");
             editPassword2.requestFocus();
             return;
         }
@@ -160,7 +169,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             tgl_lahir,
                             alamat_pasien,
                             email,
-                            password, "1"
+                            password, "1",
+                            no_telpon
                     );
 
                     Log.d("", akun.toString());

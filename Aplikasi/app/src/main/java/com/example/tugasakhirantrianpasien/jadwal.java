@@ -23,14 +23,23 @@ import com.example.tugasakhirantrianpasien.model.Akun;
 import com.example.tugasakhirantrianpasien.model.NomorAntrianModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.BreakIterator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class jadwal extends AppCompatActivity
@@ -41,9 +50,9 @@ public class jadwal extends AppCompatActivity
     Spinner spinner;
     TextView date1;
     private int year, month, day;
-    private BreakIterator datePickerButton;
-    private FirebaseFirestore db;
 
+    private FirebaseFirestore db;
+    boolean cekSekali=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +61,11 @@ public class jadwal extends AppCompatActivity
         btnlanjut = findViewById(R.id.btnjadi);
         spinner = findViewById(R.id.spinner1);
         date1 = findViewById(R.id.date1);
+
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
 
         date1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,53 +76,81 @@ public class jadwal extends AppCompatActivity
         btnjadkem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent kembali = new Intent(jadwal.this, Nav_Home.class);
-                startActivity(kembali);
+                finish();
             }
         });
 
         btnlanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent lanjut = new Intent(jadwal.this, nomor_antrian.class);
-                String nomor= "1";
+
+                if (date1.getText().toString().isEmpty()){
+                    Toast.makeText(jadwal.this, "Tanggal belum ditentukan!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference(date1.getText().toString());
 
-                NomorAntrianModel nomorAntrianModel = new NomorAntrianModel();
-                nomorAntrianModel.setId(date1.getText().toString()+tools.getSharedPreferenceString(jadwal.this, "nama", ""));
-                nomorAntrianModel.setDetail(tools.getSharedPreferenceString(jadwal.this, "nik", ""),
-                nomor,
-                tools.getSharedPreferenceString(jadwal.this, "nama", ""),
-                spinner.getSelectedItem().toString(),
-                date1.getText().toString());
-
-
-                lanjut.putExtra("poli", spinner.getSelectedItem().toString());
-                lanjut.putExtra("waktu", date1.getText().toString());
-                lanjut.putExtra("nomor", nomor);
-
-
-                myRef.setValue(nomorAntrianModel);
 
 //                Read from the database
-//                myRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // This method is called once with the initial value and again
-//                        // whenever data at this location is updated.
-//                        String value = dataSnapshot.getValue(String.class);
-//                        Log.d(TAG, "Value is: " + value);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError error) {
-//                        // Failed to read value
-//                        Log.w(TAG, "Failed to read value.", error.toException());
-//                    }
-//                });
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
 
-                startActivity(lanjut);
+
+                        if (!cekSekali){
+                            cekSekali =true;
+
+
+                        Log.d("aaa", "aaa");
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        Intent lanjut = new Intent(jadwal.this, nomor_antrian.class);
+                        int nomor= (int) (dataSnapshot.getChildrenCount());
+
+                        if(nomor==0){
+                            nomor=1;
+                        }else {
+                            nomor++;
+                        }
+
+                        DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"
+                                +tools.getSharedPreferenceString(jadwal.this, "nik", ""));
+
+                        NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString(jadwal.this, "nik", ""),
+                                String.valueOf(nomor),
+                                tools.getSharedPreferenceString(jadwal.this, "nama", ""),
+                                spinner.getSelectedItem().toString(),
+                                date1.getText().toString()
+                        );
+
+
+                        lanjut.putExtra("poli", spinner.getSelectedItem().toString());
+                        lanjut.putExtra("waktu", date1.getText().toString());
+                        lanjut.putExtra("nomor",  String.valueOf(nomor));
+
+
+                        myRef.setValue(nomorAntrianModel);
+
+
+
+                        startActivity(lanjut);
+                        finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+
+                        cekSekali =false;
+
+                    }
+                });
+
             }
         });
 
@@ -148,8 +190,25 @@ public class jadwal extends AppCompatActivity
             day = selectedDay;
             month = selectedMonth;
             year = selectedYear;
-            date1.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
+            String date = (selectedDay + " / " + (selectedMonth + 1) + " / "
                     + selectedYear);
+
+            SimpleDateFormat format = new SimpleDateFormat("dd / MM / yyyy", Locale.ENGLISH);
+            Date newDate = null;
+            try {
+                newDate = format.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //pengaturan output tanggal di layout jadwal
+            SimpleDateFormat format2= null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                format2 = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
+            }
+            String s = format2.format(newDate);
+            date1.setText(s);
+
         }
     };
     @Override

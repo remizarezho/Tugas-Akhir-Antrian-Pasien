@@ -6,6 +6,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="10dp">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +22,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="ID Pasien"/>
+            android:text="NIK"/>
         <TextView
             android:layout_width="5dp"
             android:layout_height="wrap_content"
@@ -21,8 +30,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_idPas"
-            android:hint="ID Pasien"/>
+            android:id="@+id/edt_nikPas"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_namaPas"
-            android:hint="Nama Lengkap"/>
+            android:hint="Nama Lengkap Sesuai KTP"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +58,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Umur "/>
+            android:text="Tanggal Lahir "/>
         <TextView
             android:layout_width="5dp"
             android:layout_height="wrap_content"
@@ -59,8 +67,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_umurPas"
-            android:hint="Umur"/>
+            android:id="@+id/edt_tglLahirPas"
+            android:hint="DD MM YYYY"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_alamatPas"
-            android:hint="Alamat Lengkap"/>
+            android:hint="Alamat Sesuai KTP"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +96,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Telepon "/>
+            android:text="Telepon"/>
         <TextView
             android:layout_width="5dp"
             android:layout_height="wrap_content"
@@ -98,8 +106,9 @@
             android:id="@+id/edit_teleponPas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomor Telepon Lengkap" />
+            android:hint="HP atau Rumah"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,43 +116,68 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Agama "/>
+            android:text="Email "/>
         <TextView
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:text=":"/>
 
         <EditText
+            android:id="@+id/edit_emailPas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_namaJenis"
-            android:hint="Agama"/>
+            android:inputType="textEmailAddress"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Password "/>
+        <TextView
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:text=":"/>
+
+        <EditText
+            android:id="@+id/edit_passwordPas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/edit_konfPasswordPas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Konfirmasi Password"
+            android:inputType="textPassword"/>
+    </LinearLayout>
 
     <Button
+        android:id="@+id/btn_savedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/btn_insertdata"/>
+        android:text="Save" />
 
     <Button
-        android:id="@+id/btntampildata"
+        android:id="@+id/btnkembali"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tampil Data" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/btnUpdate"
-        android:visibility="gone"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hapus"
-        android:background="#a41a1a"
-        android:id="@+id/btnhapus"
-        android:visibility="gone"/>
+        android:text="Kembali" />
+
+    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

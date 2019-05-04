@@ -5,9 +5,18 @@ public class Akun {
     private String tgl_lahir;
     private String nik;
     private String alamat;
+    private String notlp;
     private String email;
     private String password;
     private String level;
+
+    public String getNotlp() {
+        return notlp;
+    }
+
+    public void setNotlp(String notlp) {
+        this.notlp = notlp;
+    }
 
     public String getLevel() {
         return level;
@@ -70,11 +79,12 @@ public class Akun {
 
     }
 
-    public Akun(String nik, String nama, String tgl_lahir, String alamat, String email, String password, String level) {
+    public Akun(String nik, String nama, String tgl_lahir, String alamat, String email, String password, String level, String notlp) {
         this.nik = nik;
         this.nama = nama;
         this.tgl_lahir = tgl_lahir;
         this.alamat = alamat;
+        this.notlp = notlp;
         this.email = email;
         this.password = password;
         this.level = level;

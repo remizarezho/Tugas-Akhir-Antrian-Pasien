@@ -14,12 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class Nav_Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private CardView mDataPasien;
     private CardView mPendaftaran;
+    private CardView mPoliklinik;
+    private TextView mTvLevel;
 
 
     @Override
@@ -40,18 +43,39 @@ public class Nav_Home extends AppCompatActivity
 
         mPendaftaran = findViewById(R.id.home_pendaftaran);
         mDataPasien = findViewById(R.id.home_data_pasien);
+        mPoliklinik = findViewById(R.id.home_poliklinik);
+        mTvLevel = findViewById(R.id.judul_level);
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
 
             mDataPasien.setVisibility(View.GONE);
+            mTvLevel.setText("PASIEN");
+        }else {
+            mTvLevel.setText("ADMIN");
         }
+
+        mDataPasien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pendaftaran = new Intent(Nav_Home.this, LihatDataPasien.class);
+                startActivity(pendaftaran);
+            }
+        });
 
         mPendaftaran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pendaftaran = new Intent(Nav_Home.this, jadwal.class);
                 startActivity(pendaftaran);
+            }
+        });
+
+        mPoliklinik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent poliklinik = new Intent(Nav_Home.this, PoliKlinik.class);
+                startActivity(poliklinik);
             }
         });
     }
@@ -76,11 +100,14 @@ public class Nav_Home extends AppCompatActivity
         if (id == R.id.nav_profil) {
 
         } else if (id == R.id.nav_data_pasien) {
-
+            Intent intent = new Intent(Nav_Home.this, LihatDataPasien.class);
+            startActivity(intent);
         } else if (id == R.id.nav_jadwal) {
-
+            Intent intent = new Intent(Nav_Home.this, jadwal.class);
+            startActivity(intent);
         } else if (id == R.id.nav_poli) {
-
+            Intent intent = new Intent(Nav_Home.this, PoliKlinik.class);
+            startActivity(intent);
         } else if (id == R.id.nav_info) {
 
         } else if (id == R.id.nav_setting) {
