@@ -14,12 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".nomor_antrian"></activity>
+        <activity android:name=".profile"></activity>
+        <activity android:name=".nomor_antrian" />
         <activity android:name=".activity_informasi" />
-        <activity android:name=".jadwal"/>
-        <activity android:name=".PoliKlinik"/>
-        <activity android:name=".LihatDataPasien"/>
-        <activity android:name=".tambah_data_pasien"/>
+        <activity android:name=".jadwal" />
+        <activity android:name=".PoliKlinik" />
+        <activity android:name=".LihatDataPasien" />
+        <activity android:name=".tambah_data_pasien" />
         <activity
             android:name=".Nav_Home"
             android:label="@string/title_activity_nav__home"

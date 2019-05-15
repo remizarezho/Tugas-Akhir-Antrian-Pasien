@@ -184,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                        tools.setSharedPreference(LoginActivity.this,"nik", document.getData().get("nik").toString());
                                                        tools.setSharedPreference(LoginActivity.this,"nama", document.getData().get("nama").toString());
                                                        tools.setSharedPreference(LoginActivity.this,"isLogin", "1");
+                                                       tools.setSharedPreference(LoginActivity.this,"email", email1);
                                                        finish();
                                                        Intent intent = new Intent(LoginActivity.this, Nav_Home.class);
                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

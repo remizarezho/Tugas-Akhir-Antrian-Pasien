@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Nav_Home extends AppCompatActivity
@@ -23,6 +24,8 @@ public class Nav_Home extends AppCompatActivity
     private CardView mPendaftaran;
     private CardView mPoliklinik;
     private TextView mTvLevel;
+    private ImageView mImgProfil;
+    private TextView mNameProfil;
 
 
     @Override
@@ -40,6 +43,10 @@ public class Nav_Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerview = navigationView.getHeaderView(0);
+        mImgProfil = headerview.findViewById(R.id.img_profil);
+        mNameProfil = headerview.findViewById(R.id.name_profil);
+        mNameProfil.setText(tools.getSharedPreferenceString(this, "nama", ""));
 
         mPendaftaran = findViewById(R.id.home_pendaftaran);
         mDataPasien = findViewById(R.id.home_data_pasien);
@@ -78,6 +85,20 @@ public class Nav_Home extends AppCompatActivity
                 startActivity(poliklinik);
             }
         });
+        mImgProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent poliklinik = new Intent(Nav_Home.this, profile.class);
+                startActivity(poliklinik);
+            }
+        });
+        mNameProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent poliklinik = new Intent(Nav_Home.this, profile.class);
+                startActivity(poliklinik);
+            }
+        });
     }
 
     @Override
@@ -97,9 +118,7 @@ public class Nav_Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profil) {
-
-        } else if (id == R.id.nav_data_pasien) {
+        if (id == R.id.nav_data_pasien) {
             Intent intent = new Intent(Nav_Home.this, LihatDataPasien.class);
             startActivity(intent);
         } else if (id == R.id.nav_jadwal) {
