@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -26,6 +27,8 @@ public class Nav_Home extends AppCompatActivity
     private CardView mPoliklinik;
     private CardView mPanggil;
     private TextView mTvLevel;
+    private ImageView mImgProfil;
+    private TextView mNameProfil;
 
 
     @Override
