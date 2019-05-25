@@ -26,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class tambah_data_pasien extends AppCompatActivity {
     private Button mSave;
     private Button mKembali;
-    private Button tampilData;
     private EditText editTextEmail;
     private EditText editPassword1;
     private EditText editPassword2;

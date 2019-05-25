@@ -107,8 +107,8 @@ public class jadwal extends AppCompatActivity
 
 
                         Log.d("aaa", "aaa");
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        Intent lanjut = new Intent(jadwal.this, nomor_antrian.class);
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final Intent lanjut = new Intent(jadwal.this, nomor_antrian.class);
                         int nomor= (int) (dataSnapshot.getChildrenCount());
 
                         if(nomor==0){
@@ -117,28 +117,62 @@ public class jadwal extends AppCompatActivity
                             nomor++;
                         }
 
-                        DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"
-                                +tools.getSharedPreferenceString(jadwal.this, "nik", ""));
+                        //////////////////////
 
-                        NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString(jadwal.this, "nik", ""),
-                                String.valueOf(nomor),
-                                tools.getSharedPreferenceString(jadwal.this, "nama", ""),
-                                spinner.getSelectedItem().toString(),
-                                date1.getText().toString()
-                        );
+                            db = FirebaseFirestore.getInstance();
+                            final int finalNomor = nomor;
+                            db.collection("limit")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    Log.d(String.valueOf("bbb"), document.getId() + " => " + document.getData());
+                                                 if ( finalNomor <= (Integer.parseInt(document.getData().get("nomor").toString())) ){
+
+                                                     DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"
+                                                             +tools.getSharedPreferenceString(jadwal.this, "nik", ""));
+
+                                                     NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString(jadwal.this, "nik", ""),
+                                                             String.valueOf(finalNomor),
+                                                             tools.getSharedPreferenceString(jadwal.this, "nama", ""),
+                                                             spinner.getSelectedItem().toString(),
+                                                             date1.getText().toString()
+                                                     );
 
 
-                        lanjut.putExtra("poli", spinner.getSelectedItem().toString());
-                        lanjut.putExtra("waktu", date1.getText().toString());
-                        lanjut.putExtra("nomor",  String.valueOf(nomor));
+                                                     lanjut.putExtra("poli", spinner.getSelectedItem().toString());
+                                                     lanjut.putExtra("waktu", date1.getText().toString());
+                                                     lanjut.putExtra("nomor",  String.valueOf(finalNomor));
 
 
-                        myRef.setValue(nomorAntrianModel);
+                                                     myRef.setValue(nomorAntrianModel);
 
 
 
-                        startActivity(lanjut);
-                        finish();
+                                                     startActivity(lanjut);
+                                                     finish();
+
+                                                     break;
+                                                 }else {
+                                                     Toast.makeText(jadwal.this, "Kuota Sudah Penuh, Silahkan Tentukan Jadwal Lain", Toast.LENGTH_SHORT).show();
+                                                 }
+
+                                                }
+
+                                            } else {
+                                                Log.w(String.valueOf("aaa"), "Error getting documents.", task.getException());
+                                            } }
+                                    });
+
+
+
+
+                        ////////////////////////////
+
+
                         }
                     }
 

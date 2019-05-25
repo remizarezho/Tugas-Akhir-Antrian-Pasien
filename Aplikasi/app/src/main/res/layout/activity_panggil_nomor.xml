@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#fcfcfc"
+    android:gravity="center|bottom"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".panggil_nomor">
+
+    <TextView
+        android:id="@+id/judul_panggilan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PUSKESMAS KOTA BATU"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_nomor"
+        android:layout_below="@+id/judul_panggilan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp">
+
+        <android.support.v7.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/kartu_nomor"
+            android:layout_width="210dp"
+            android:layout_height="240dp"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:text="NOMOR ANTRIAN KE"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightgray"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:id="@+id/nomor_antrian"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    android:gravity="center"
+                    android:textSize="150dp"/>
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/layout_nomor"
+        android:gravity="center">
+            <LinearLayout
+                android:id="@+id/btn_play"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginRight="50dp">
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/backgroundlingkaranhijau"
+                    android:padding="10dp">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:text="Play"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/backgroundlingkarankuning"
+                    android:padding="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Next"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dinas Kesehatan Kota Batu"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

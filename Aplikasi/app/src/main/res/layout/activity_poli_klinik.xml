@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
+    android:id="@+id/relativeRuangan"
     android:orientation="vertical">
 
     <TextView
@@ -21,5 +22,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycleview1"/>
+
+    <ImageView
+        android:id="@+id/prefences2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/backgroundlingkaranpink"
+        android:padding="10dp"
+        android:src="@drawable/ic_playlist_add_black_24dp"/>
+
 
 </RelativeLayout>

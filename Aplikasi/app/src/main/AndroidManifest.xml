@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile"></activity>
+        <activity android:name=".DetailPoli"></activity>
         <activity android:name=".nomor_antrian" />
         <activity android:name=".activity_informasi" />
         <activity android:name=".jadwal" />

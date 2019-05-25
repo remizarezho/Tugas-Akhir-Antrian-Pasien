@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class tools {
     private static final String PREFS_NAME = "TugasAkhir";
-//tes
+
     public static String getSharedPreferenceString(Context c, String preference, String defaultValue) {
         try {
             if (c != null){
