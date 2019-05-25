@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -147,39 +148,37 @@ public class profile extends AppCompatActivity {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            CollectionReference dbAkun = db.collection("akun");
                             final Uri downloadUrl = uri;
 
-                            Akun akun = new Akun(
-                                    nik.getText().toString(),
-                                    nama.getText().toString(),
-                                    tglLahir.getText().toString(),
-                                    alamat.getText().toString(),
-                                    email.getText().toString(),
-                                    password.getText().toString(), "1",
-                                    notlp.getText().toString(), downloadUrl.toString()
-                            );
+                            FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+                            final CollectionReference complaintsRef = rootRef.collection("akun");
+                            complaintsRef.whereEqualTo("nik", nik.getText().toString())
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            Log.d("", akun.toString());
+                                            Akun akun = new Akun(
+                                                    nik.getText().toString(),
+                                                    nama.getText().toString(),
+                                                    tglLahir.getText().toString(),
+                                                    alamat.getText().toString(),
+                                                    email.getText().toString(),
+                                                    password.getText().toString(), "1",
+                                                    notlp.getText().toString(), downloadUrl.toString()
+                                            );
 
-                            dbAkun.add(akun)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            //Do what you want with the url
+                                            complaintsRef.document(document.getId()).set(akun, SetOptions.merge());
+
                                             progressDialog.dismiss();
                                             tools.setSharedPreference(profile.this,"foto",downloadUrl.toString());
                                             Toast.makeText(profile.this, "Uploaded" +downloadUrl, Toast.LENGTH_SHORT).show();
                                             loadImage(downloadUrl.toString());
-
                                         }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(profile.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    });
+                                    }
+                                }
+                            });
                         }
                     });
 
