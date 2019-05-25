@@ -16,12 +16,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class Nav_Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private CardView mDataPasien;
     private CardView mPendaftaran;
     private CardView mPoliklinik;
+    private CardView mPanggil;
     private TextView mTvLevel;
 
 
@@ -40,16 +43,24 @@ public class Nav_Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerview = navigationView.getHeaderView(0);
+        mImgProfil = headerview.findViewById(R.id.img_profil);
+        loadImage(tools.getSharedPreferenceString(this, "foto", ""));
+
+        mNameProfil = headerview.findViewById(R.id.name_profil);
+        mNameProfil.setText(tools.getSharedPreferenceString(this, "nama", ""));
 
         mPendaftaran = findViewById(R.id.home_pendaftaran);
         mDataPasien = findViewById(R.id.home_data_pasien);
         mPoliklinik = findViewById(R.id.home_poliklinik);
         mTvLevel = findViewById(R.id.judul_level);
+        mPanggil = findViewById(R.id.panggil_nomor);
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
 
             mDataPasien.setVisibility(View.GONE);
+            mPanggil.setVisibility(View.GONE);
             mTvLevel.setText("PASIEN");
         }else {
             mTvLevel.setText("ADMIN");
@@ -58,8 +69,8 @@ public class Nav_Home extends AppCompatActivity
         mDataPasien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pendaftaran = new Intent(Nav_Home.this, LihatDataPasien.class);
-                startActivity(pendaftaran);
+                Intent datapasien = new Intent(Nav_Home.this, LihatDataPasien.class);
+                startActivity(datapasien);
             }
         });
 
@@ -76,6 +87,27 @@ public class Nav_Home extends AppCompatActivity
             public void onClick(View v) {
                 Intent poliklinik = new Intent(Nav_Home.this, PoliKlinik.class);
                 startActivity(poliklinik);
+            }
+        });
+        mImgProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imgProfil = new Intent(Nav_Home.this, profile.class);
+                startActivity(imgProfil);
+            }
+        });
+        mNameProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nameProfil = new Intent(Nav_Home.this, profile.class);
+                startActivity(nameProfil);
+            }
+        });
+        mPanggil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent panggilan = new Intent(Nav_Home.this, panggil_nomor.class);
+                startActivity(panggilan);
             }
         });
     }
@@ -122,5 +154,22 @@ public class Nav_Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        loadImage(tools.getSharedPreferenceString(this, "foto", ""));
+        mNameProfil.setText(tools.getSharedPreferenceString(this, "nama", ""));
+        super.onResume();
+    }
+
+    private void loadImage(String url){
+        if (!url.isEmpty()) {
+            Picasso.get()
+                    .load(url)
+                    .fit()
+                    .centerCrop()
+                    .into(mImgProfil);
+        }
     }
 }

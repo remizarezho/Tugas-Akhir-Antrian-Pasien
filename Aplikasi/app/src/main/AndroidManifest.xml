@@ -15,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DetailPoli"></activity>
+        <activity android:name=".panggil_nomor"></activity>
+        <activity android:name=".profile" />
         <activity android:name=".nomor_antrian" />
         <activity android:name=".activity_informasi" />
         <activity android:name=".jadwal" />

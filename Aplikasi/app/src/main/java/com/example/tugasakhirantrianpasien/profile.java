@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tugasakhirantrianpasien.model.Akun;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -117,6 +120,7 @@ public class profile extends AppCompatActivity {
                                     password.setText(document.getData().get("password").toString());
                                     tglLahir.setText(document.getData().get("tgl_lahir").toString());
                                     alamat.setText(document.getData().get("alamat").toString());
+                                    loadImage(document.getData().get("foto").toString());
 
                                 }
                             }
@@ -135,20 +139,47 @@ public class profile extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            final StorageReference ref = storageReference.child("images/"+ (tools.getSharedPreferenceString
-                    (profile.this, "nik", "")));
-//            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            final StorageReference ref = storageReference.child("images/"+ (nik.getText().toString()));
+
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Uri downloadUrl = uri;
-                            //Do what you want with the url
-                            progressDialog.dismiss();
-                            Toast.makeText(profile.this, "Uploaded" +downloadUrl, Toast.LENGTH_SHORT).show();
-                            loadImage(downloadUrl.toString());
+                            CollectionReference dbAkun = db.collection("akun");
+                            final Uri downloadUrl = uri;
+
+                            Akun akun = new Akun(
+                                    nik.getText().toString(),
+                                    nama.getText().toString(),
+                                    tglLahir.getText().toString(),
+                                    alamat.getText().toString(),
+                                    email.getText().toString(),
+                                    password.getText().toString(), "1",
+                                    notlp.getText().toString(), downloadUrl.toString()
+                            );
+
+                            Log.d("", akun.toString());
+
+                            dbAkun.add(akun)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            //Do what you want with the url
+                                            progressDialog.dismiss();
+                                            tools.setSharedPreference(profile.this,"foto",downloadUrl.toString());
+                                            Toast.makeText(profile.this, "Uploaded" +downloadUrl, Toast.LENGTH_SHORT).show();
+                                            loadImage(downloadUrl.toString());
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(profile.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                         }
                     });
 
@@ -175,10 +206,12 @@ public class profile extends AppCompatActivity {
     }
 
     private void loadImage(String url){
-        Picasso.get()
-                .load(url)
-                .fit()
-                .centerCrop()
-                .into(avatar);
+        if (!url.isEmpty()) {
+            Picasso.get()
+                    .load(url)
+                    .fit()
+                    .centerCrop()
+                    .into(avatar);
+            }
+        }
     }
-}
