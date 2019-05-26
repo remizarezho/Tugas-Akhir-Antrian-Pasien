@@ -24,6 +24,37 @@
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
+        <RadioGroup
+            android:id="@+id/rdg_kategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/rdb_bpjs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BPJS"
+                android:layout_marginRight="50dp"/>
+            <RadioButton
+                android:id="@+id/rdb_umum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UMUM"
+                android:checked="true"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/no_bpjs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="Nomor BPJS"
+            android:padding="10dp" />
+
         <EditText
             android:id="@+id/no_ktp"
             android:layout_width="match_parent"

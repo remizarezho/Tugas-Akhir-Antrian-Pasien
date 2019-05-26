@@ -116,7 +116,13 @@ public class profile extends AppCompatActivity {
 
                                     email.setText(document.getData().get("email").toString());
                                     nama.setText(document.getData().get("nama").toString());
-                                    nik.setText(document.getData().get("nik").toString());
+
+                                    if((document.getData().get("nik").toString().isEmpty())){
+                                        nik.setText(document.getData().get("bpjs").toString());
+                                    } else {
+                                        nik.setText(document.getData().get("nik").toString());
+                                    }
+
                                     notlp.setText(document.getData().get("notlp").toString());
                                     password.setText(document.getData().get("password").toString());
                                     tglLahir.setText(document.getData().get("tgl_lahir").toString());
@@ -158,15 +164,23 @@ public class profile extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String no_nik = "";
+                                            String no_bpjs ="";
+
+                                            if((document.getData().get("nik").toString().isEmpty())){
+                                                no_bpjs = (document.getData().get("bpjs").toString());
+                                            } else {
+                                                no_nik = (document.getData().get("nik").toString());
+                                            }
 
                                             Akun akun = new Akun(
-                                                    nik.getText().toString(),
+                                                    no_nik,
                                                     nama.getText().toString(),
                                                     tglLahir.getText().toString(),
                                                     alamat.getText().toString(),
                                                     email.getText().toString(),
-                                                    password.getText().toString(), "1",
-                                                    notlp.getText().toString(), downloadUrl.toString()
+                                                    password.getText().toString(), document.getData().get("level").toString(),
+                                                    notlp.getText().toString(), downloadUrl.toString(), no_bpjs
                                             );
 
                                             complaintsRef.document(document.getId()).set(akun, SetOptions.merge());

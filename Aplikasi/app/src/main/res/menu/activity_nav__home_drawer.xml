@@ -21,9 +21,9 @@
             android:icon="@drawable/ic_group_black_24dp"
             android:title="Pasien" />
         <item
-            android:id="@+id/nav_profil"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="Profile" />
+            android:id="@+id/nav_panggil"
+            android:icon="@drawable/ic_queue_play_next_white_24dp"
+            android:title="Panggil Nomor" />
 
     </group>
 

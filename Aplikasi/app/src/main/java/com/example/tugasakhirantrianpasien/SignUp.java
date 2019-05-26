@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,10 +36,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private EditText editPassword1;
     private EditText editPassword2;
     private EditText editNoKtp;
+    private EditText editNoBpjs;
     private EditText editNamaPasien;
     private EditText editTglLahir;
     private EditText editAlamat;
     private EditText editNoTlp;
+
+    private RadioGroup rdgKategori;
+    private RadioButton rdbBPJS;
+    private RadioButton rdbUmum;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -51,7 +58,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         tvLoginActivity = findViewById(R.id.tv_sudah_punya_akun);
         mTombolSignUp = findViewById(R.id.tombol_signup);
+
         editNoKtp = findViewById(R.id.no_ktp);
+        editNoBpjs = findViewById(R.id.no_bpjs);
+        rdgKategori = findViewById(R.id.rdg_kategori);
+        rdbBPJS = findViewById(R.id.rdb_bpjs);
+        rdbUmum = findViewById(R.id.rdb_umum);
+
         editNamaPasien = findViewById(R.id.nama_pasien);
         editTglLahir = findViewById(R.id.tgl_lahir);
         editAlamat = findViewById(R.id.alamat_pasien);
@@ -63,6 +76,23 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        editNoBpjs.setVisibility(View.GONE);
+
+        rdgKategori.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rdb_bpjs) {
+                    rdbUmum.setChecked(false);
+                    editNoBpjs.setVisibility(View.VISIBLE);
+                    editNoKtp.setVisibility(View.GONE);
+                } else {
+                    rdbBPJS.setChecked(false);
+                    editNoBpjs.setVisibility(View.GONE);
+                    editNoKtp.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         tvLoginActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +117,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     private void registerUser() {
         final String no_ktp = editNoKtp.getText().toString().trim();
+        final String no_bpjs = editNoBpjs.getText().toString().trim();
         final String nama_pasien = editNamaPasien.getText().toString().trim();
         final String tgl_lahir = editTglLahir.getText().toString().trim();
         final String alamat_pasien = editAlamat.getText().toString().trim();
@@ -170,7 +201,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             alamat_pasien,
                             email,
                             password, "1",
-                            no_telpon, ""
+                            no_telpon, "", no_bpjs
                     );
 
                     Log.d("", akun.toString());

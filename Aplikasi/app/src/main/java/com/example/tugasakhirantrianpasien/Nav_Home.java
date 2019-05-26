@@ -132,8 +132,9 @@ public class Nav_Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profil) {
-
+        if (id == R.id.nav_panggil) {
+            Intent intent = new Intent(Nav_Home.this, panggil_nomor.class);
+            startActivity(intent);
         } else if (id == R.id.nav_data_pasien) {
             Intent intent = new Intent(Nav_Home.this, LihatDataPasien.class);
             startActivity(intent);

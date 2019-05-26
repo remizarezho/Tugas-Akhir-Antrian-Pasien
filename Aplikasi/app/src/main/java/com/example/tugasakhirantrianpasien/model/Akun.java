@@ -10,6 +10,15 @@ public class Akun {
     private String password;
     private String level;
     private String foto;
+    private String bpjs;
+
+    public String getBpjs() {
+        return bpjs;
+    }
+
+    public void setBpjs(String bpjs) {
+        this.bpjs = bpjs;
+    }
 
     public String getFoto() {
         return foto;
@@ -89,7 +98,8 @@ public class Akun {
     }
 
     public Akun(String nik, String nama, String tgl_lahir, String alamat,
-                String email, String password, String level, String notlp, String foto) {
+                String email, String password, String level, String notlp, String foto,
+                String bpjs) {
         this.nik = nik;
         this.nama = nama;
         this.tgl_lahir = tgl_lahir;
@@ -99,6 +109,7 @@ public class Akun {
         this.password = password;
         this.level = level;
         this.foto = foto;
+        this.bpjs = bpjs;
     }
 
 }
