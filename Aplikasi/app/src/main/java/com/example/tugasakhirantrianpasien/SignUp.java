@@ -125,12 +125,19 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         final String email = editTextEmail.getText().toString().trim();
         final String password = editPassword1.getText().toString().trim();
 
-        if (no_ktp.isEmpty()) {
-            editNoKtp.setError("Wajib diisi!");
-            editNoKtp.requestFocus();
-            return;
+        if (rdbBPJS.isChecked()) {
+            if (no_bpjs.isEmpty()) {
+                editNoBpjs.setError("Wajib diisi!");
+                editNoBpjs.requestFocus();
+                return;
+            }
+        }else{
+            if (no_ktp.isEmpty()) {
+                editNoKtp.setError("Wajib diisi!");
+                editNoKtp.requestFocus();
+                return;
+            }
         }
-
         if (nama_pasien.isEmpty()) {
             editNamaPasien.setError("Wajib diisi!");
             editNamaPasien.requestFocus();
@@ -201,7 +208,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             alamat_pasien,
                             email,
                             password, "1",
-                            no_telpon, "", no_bpjs
+                            no_telpon, "",
+                            no_bpjs
                     );
 
                     Log.d("", akun.toString());

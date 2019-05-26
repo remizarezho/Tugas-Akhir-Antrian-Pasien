@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activity_informasi">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:id="@+id/judulinformasi">
 
         <TextView
             android:layout_width="match_parent"
@@ -23,17 +20,26 @@
             android:text="INFORMASI"
             android:textSize="20dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="650dp">
 
-        <Button
-            android:id="@+id/btn_kembali_info"
-            android:text="Back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"/>
-    </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:layout_below="@+id/judulinformasi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/txtKonten"
+        android:textAlignment="center"
+        android:text="ISI INFORMASI"
+        android:textSize="20dp"/>
+
+
+    <ImageView
+        android:id="@+id/prefences"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/backgroundlingkaranpink"
+        android:padding="10dp"
+        android:src="@drawable/ic_playlist_add_black_24dp"/>
 </RelativeLayout>

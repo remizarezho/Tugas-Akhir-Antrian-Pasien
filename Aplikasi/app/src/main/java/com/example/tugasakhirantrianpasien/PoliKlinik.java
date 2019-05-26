@@ -71,8 +71,6 @@ public class PoliKlinik extends AppCompatActivity {
                                 data.add(document.getData().get("nama").toString());
                             }
 
-
-
                             db.collection("pelayanan")
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -90,11 +88,7 @@ public class PoliKlinik extends AppCompatActivity {
                                                                 document.getData().get("poli").toString(),
                                                                 document.getData().get("haripelayanan").toString()
                                                                 );
-
-
                                                     pelayananwes .add(pelayanan);
-
-
                                                 }
 
                                                 mAdapter = new PoliKlinik2(data,PoliKlinik.this,relativeRuangan,pelayananwes);

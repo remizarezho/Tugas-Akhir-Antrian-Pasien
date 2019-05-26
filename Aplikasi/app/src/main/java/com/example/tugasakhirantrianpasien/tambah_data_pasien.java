@@ -119,10 +119,18 @@ public class tambah_data_pasien extends AppCompatActivity {
         final String email = editTextEmail.getText().toString().trim();
         final String password = editPassword1.getText().toString().trim();
 
-        if (no_ktp.isEmpty()) {
-            editNoKtp.setError("Wajib diisi!");
-            editNoKtp.requestFocus();
-            return;
+        if (rdbBPJS.isChecked()) {
+            if (no_bpjs.isEmpty()) {
+                editNoBpjs.setError("Wajib diisi!");
+                editNoBpjs.requestFocus();
+                return;
+            }
+        }else{
+            if (no_ktp.isEmpty()) {
+                editNoKtp.setError("Wajib diisi!");
+                editNoKtp.requestFocus();
+                return;
+            }
         }
 
         if (nama_pasien.isEmpty()) {

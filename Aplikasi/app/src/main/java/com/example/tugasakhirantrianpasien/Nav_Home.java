@@ -29,6 +29,7 @@ public class Nav_Home extends AppCompatActivity
     private TextView mTvLevel;
     private ImageView mImgProfil;
     private TextView mNameProfil;
+    private CardView mInformasi;
 
 
     @Override
@@ -58,6 +59,7 @@ public class Nav_Home extends AppCompatActivity
         mPoliklinik = findViewById(R.id.home_poliklinik);
         mTvLevel = findViewById(R.id.judul_level);
         mPanggil = findViewById(R.id.panggil_nomor);
+        mInformasi = findViewById(R.id.home_informasi);
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
@@ -110,6 +112,14 @@ public class Nav_Home extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent panggilan = new Intent(Nav_Home.this, panggil_nomor.class);
+                startActivity(panggilan);
+            }
+        });
+
+        mInformasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent panggilan = new Intent(Nav_Home.this, activity_informasi.class);
                 startActivity(panggilan);
             }
         });

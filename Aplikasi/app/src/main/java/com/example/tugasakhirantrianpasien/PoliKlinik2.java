@@ -47,7 +47,6 @@ class PoliKlinik2 extends RecyclerView.Adapter<PoliKlinik2.ViewHolder> {
         this.relativeRuangan=relativeRuangan;
         this.pelayananwes=pelayananwes;
 
-
     }
 
     @NonNull
@@ -133,7 +132,7 @@ class PoliKlinik2 extends RecyclerView.Adapter<PoliKlinik2.ViewHolder> {
 
 
 
-                    editNamaDokter.setText(pelayananwesPelayanans.getIddokter());
+                    editNamaDokter.setText(pelayananwesPelayanans.getNamadokter());
                     editJamPelayanan.setText(pelayananwesPelayanans.getJampelayanan());
                     editHariPelayanan.setText(pelayananwesPelayanans.getHaripelayanan());
 
