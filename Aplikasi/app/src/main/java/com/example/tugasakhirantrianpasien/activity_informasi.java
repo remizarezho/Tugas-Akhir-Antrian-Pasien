@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.ActionMode;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +32,6 @@ public class activity_informasi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informasi);
         db = FirebaseFirestore.getInstance();
-
         txtKonten = findViewById(R.id.txtKonten);
 
 
@@ -42,6 +43,12 @@ public class activity_informasi extends AppCompatActivity {
                 startActivity(datapasien);
             }
         });
+
+        if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
+           tomboltambah.setVisibility(View.GONE);
+        }else {
+
+        }
 
         getData();
 

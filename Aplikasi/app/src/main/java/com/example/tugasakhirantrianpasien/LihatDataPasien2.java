@@ -121,6 +121,8 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
             LayoutInflater inflater = (LayoutInflater)
                     context.getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = inflater.inflate(R.layout.popup_window_data_pasien, null);
+            LinearLayout Linier_pasienBpjs = popupView.findViewById(R.id.Linier_pasienBpjs);
+            LinearLayout Linier_pasienNik = popupView.findViewById(R.id.Linier_pasienNik);
 
             editNikPop =popupView.findViewById(R.id.edit_nikPop);
             editNamaPop =popupView.findViewById(R.id.edit_namaPop);
@@ -137,7 +139,12 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
             boolean focusable = true; // lets taps outside the popup also dismiss it
             popupWindow2 = new PopupWindow(popupView, width, height, focusable);
 
-
+            //menghilangkan kalok Bpjs/Nik tidak di isi
+            if (akunwes.getBpjs().isEmpty()){
+                Linier_pasienBpjs.setVisibility(View.GONE);
+            }else {
+                Linier_pasienNik.setVisibility(View.GONE);
+            }
 
             editNikPop.setText(akunwes.getNik());
             editNamaPop.setText(akunwes.getNama());
