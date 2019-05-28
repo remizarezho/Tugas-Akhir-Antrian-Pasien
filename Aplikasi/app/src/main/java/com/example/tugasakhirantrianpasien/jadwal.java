@@ -135,22 +135,19 @@ public class jadwal extends AppCompatActivity
                                                      DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"
                                                              +tools.getSharedPreferenceString(jadwal.this, "nik", ""));
 
-                                                     NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString(jadwal.this, "nik", ""),
+                                                     NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString
+                                                             (jadwal.this, "nik", ""),
                                                              String.valueOf(finalNomor),
                                                              tools.getSharedPreferenceString(jadwal.this, "nama", ""),
                                                              spinner.getSelectedItem().toString(),
-                                                             date1.getText().toString()
+                                                             date1.getText().toString(), false
                                                      );
-
 
                                                      lanjut.putExtra("poli", spinner.getSelectedItem().toString());
                                                      lanjut.putExtra("waktu", date1.getText().toString());
                                                      lanjut.putExtra("nomor",  String.valueOf(finalNomor));
 
-
                                                      myRef.setValue(nomorAntrianModel);
-
-
 
                                                      startActivity(lanjut);
                                                      finish();
@@ -201,7 +198,6 @@ public class jadwal extends AppCompatActivity
                                     data.add(document.getData().get("nama").toString());
                                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(jadwal.this,
                                         android.R.layout.simple_list_item_1, android.R.id.text1, data);
-//                                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(jadwal.this, data, android.R.layout.simple_spinner_item);
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner.setAdapter(adapter);
                                 spinner.setOnItemSelectedListener(jadwal.this);

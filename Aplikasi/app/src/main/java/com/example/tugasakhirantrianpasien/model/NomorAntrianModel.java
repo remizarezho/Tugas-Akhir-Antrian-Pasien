@@ -7,16 +7,25 @@ public class NomorAntrianModel  {
     private String nama;
     private String poli;
     private String waktu;
+    private Boolean status;
 
-
-    public NomorAntrianModel(String nik, String nomor, String nama, String poli, String waktu){
-        this. nik =nik;
-        this.nomor =nomor;
-        this.nama =nama;
-        this.poli =poli;
-        this.waktu= waktu;
+    public NomorAntrianModel(String nik, String nomor, String nama, String poli, String waktu, Boolean status){
+        this. nik = nik;
+        this.nomor = nomor;
+        this.nama = nama;
+        this.poli = poli;
+        this.waktu = waktu;
+        this.status =status;
     }
 
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getNik() {
         return nik;
@@ -57,7 +66,5 @@ public class NomorAntrianModel  {
     public void setWaktu(String waktu) {
         this.waktu = waktu;
     }
-
-
 
 }

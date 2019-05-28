@@ -63,6 +63,7 @@ public class Nav_Home extends AppCompatActivity
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_panggil).setVisible(false);
 
             mDataPasien.setVisibility(View.GONE);
             mPanggil.setVisibility(View.GONE);

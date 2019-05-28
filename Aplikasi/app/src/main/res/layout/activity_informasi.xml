@@ -27,7 +27,6 @@
         android:layout_height="match_parent"
         android:id="@+id/txtKonten"
         android:textAlignment="center"
-        android:text="ISI INFORMASI"
         android:textSize="20dp"/>
 
 
