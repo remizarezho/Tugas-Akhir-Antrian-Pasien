@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:text="INFORMASI"
-            android:textSize="20dp"/>
+            android:textSize="50dp"/>
     </LinearLayout>
 
     <TextView

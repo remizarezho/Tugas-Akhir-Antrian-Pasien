@@ -59,6 +59,12 @@ public class PoliKlinik extends AppCompatActivity {
             }
         });
 
+        if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
+            btnEditPas2.setVisibility(View.GONE);
+        }else {
+
+        }
+
         db = FirebaseFirestore.getInstance();
         db.collection("poli")
                 .get()

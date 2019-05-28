@@ -42,9 +42,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 
-public class jadwal extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener {
+public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    Button btnLihatNomor;
     Button btnjadkem;
     Button btnlanjut;
     Spinner spinner;
@@ -61,6 +61,7 @@ public class jadwal extends AppCompatActivity
         btnlanjut = findViewById(R.id.btnjadi);
         spinner = findViewById(R.id.spinner1);
         date1 = findViewById(R.id.date1);
+        btnLihatNomor = findViewById(R.id.btnLihatNomor);
 
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -71,6 +72,14 @@ public class jadwal extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 showDialog(0);
+            }
+        });
+        btnLihatNomor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent datapasien = new Intent(jadwal.this, nomor_antrian2.class);
+                startActivity(datapasien);
+
             }
         });
         btnjadkem.setOnClickListener(new View.OnClickListener() {
