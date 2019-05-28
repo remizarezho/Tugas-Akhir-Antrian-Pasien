@@ -35,6 +35,12 @@ public class panggil_nomor extends AppCompatActivity {
     String date="";
     NomorAntrianModel  model ;
     FirebaseDatabase database;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +70,6 @@ public class panggil_nomor extends AppCompatActivity {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         ttsLang = textToSpeech.setLanguage(Locale.forLanguageTag("in-ID"));
                     }
-
                     if (ttsLang == TextToSpeech.LANG_MISSING_DATA
                             || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "The Language is not supported!");
@@ -95,7 +100,7 @@ public class panggil_nomor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseReference myRef = database.getReference(date+"/"+
-                        model.getNik());
+                        model.getNomor()+"-" +   model.getNik());
 
                 NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(
                         model.getNik(),
@@ -107,20 +112,16 @@ public class panggil_nomor extends AppCompatActivity {
 
                 myRef.setValue(nomorAntrianModel, new DatabaseReference.CompletionListener() {
                             @Override
-                            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                            public void onComplete(@Nullable DatabaseError databaseError,
+                                                   @NonNull DatabaseReference databaseReference) {
 
                                 ////
                                 getNomorAntrian();
                             }
                         }
                 );
-
-
-
             }
         });
-
-
     }
 
     boolean isfound=false;
@@ -129,18 +130,15 @@ public class panggil_nomor extends AppCompatActivity {
         isfound=false;
         DatabaseReference myRef = database.getReference(date);
 
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-
-
                     for (DataSnapshot snapshot:  userSnapshot.getChildren()) {
                         Log.d("aaa", "onDataChange: ");
-                        if (snapshot.getChildrenCount()>0){
+                        if (snapshot.getChildrenCount() > 0) {
                             if (snapshot.child("status").getValue().toString().equals("false")) {
-                                isfound=true;
+                                isfound = true;
                                 model = new NomorAntrianModel(
                                         snapshot.child("nik").getValue().toString(),
                                         snapshot.child("nomor").getValue().toString(),
@@ -157,14 +155,10 @@ public class panggil_nomor extends AppCompatActivity {
 
                         }
                     }
-
-
                 }
 
                 if (!isfound){
-                    mNomorAntrian.setText("");
-
-                    Toast.makeText(panggil_nomor.this, "Sudah batas maksimal antrian", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(panggil_nomor.this, "Batas maksimal antrian", Toast.LENGTH_SHORT).show();
                 }
             }
 

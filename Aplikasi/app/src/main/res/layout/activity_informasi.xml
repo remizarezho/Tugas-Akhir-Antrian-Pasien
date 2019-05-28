@@ -25,6 +25,7 @@
         android:layout_below="@+id/judulinformasi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="25dp"
         android:id="@+id/txtKonten"
         android:textAlignment="center"
         android:textSize="20dp"/>

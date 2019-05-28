@@ -132,7 +132,8 @@ public class jadwal extends AppCompatActivity
                                                     Log.d(String.valueOf("bbb"), document.getId() + " => " + document.getData());
                                                  if ( finalNomor <= (Integer.parseInt(document.getData().get("nomor").toString())) ){
 
-                                                     DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"
+                                                     DatabaseReference myRef = database.getReference(date1.getText().toString()+"/"+
+                                                             String.valueOf(finalNomor) +"-"
                                                              +tools.getSharedPreferenceString(jadwal.this, "nik", ""));
 
                                                      NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(tools.getSharedPreferenceString
