@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         password = findViewById(R.id.password);
         progressBar2 = findViewById(R.id.progressbar_login);
 
+        mLupaPassword.setVisibility(View.GONE);
 
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override

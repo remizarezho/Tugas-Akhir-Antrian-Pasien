@@ -6,8 +6,24 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLihatDataPasien"
     tools:context=".LihatDataPasien">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/judulinformasi">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:text="PASIEN"
+            android:textSize="40dp"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/judulinformasi"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycleview1"/>
@@ -16,12 +32,12 @@
         android:id="@+id/prefences"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:background="@drawable/backgroundlingkaranpink"
         android:padding="10dp"
         android:src="@drawable/ic_playlist_add_black_24dp"/>
-    
+
 </RelativeLayout>

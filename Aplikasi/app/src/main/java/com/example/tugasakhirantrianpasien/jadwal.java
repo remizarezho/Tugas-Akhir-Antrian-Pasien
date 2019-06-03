@@ -45,7 +45,7 @@ import java.util.TimeZone;
 public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Button btnLihatNomor;
-    Button btnjadkem;
+//    Button btnjadkem;
     Button btnlanjut;
     Spinner spinner;
     TextView date1;
@@ -57,7 +57,7 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal);
-        btnjadkem = findViewById(R.id.btnjadkem);
+//        btnjadkem = findViewById(R.id.btnjadkem);
         btnlanjut = findViewById(R.id.btnjadi);
         spinner = findViewById(R.id.spinner1);
         date1 = findViewById(R.id.date1);
@@ -82,12 +82,12 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 
             }
         });
-        btnjadkem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        btnjadkem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         btnlanjut.setOnClickListener(new View.OnClickListener() {
             @Override

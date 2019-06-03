@@ -32,7 +32,7 @@
         android:id="@+id/btn_savedatainformasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Update" />
 
     <Button
         android:id="@+id/btn_kembaliinformasi"

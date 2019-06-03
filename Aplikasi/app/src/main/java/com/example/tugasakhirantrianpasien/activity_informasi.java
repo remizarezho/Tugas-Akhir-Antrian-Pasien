@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,20 +21,23 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class activity_informasi extends AppCompatActivity {
     private ImageView tomboltambah;
     FirebaseFirestore db;
-    TextView txtKonten;
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informasi);
+        mRecyclerView = findViewById(R.id.recycleview1);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(layoutManager);
         db = FirebaseFirestore.getInstance();
-        txtKonten = findViewById(R.id.txtKonten);
 
 
         tomboltambah = findViewById(R.id.prefences);
@@ -72,13 +77,17 @@ public class activity_informasi extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    final ArrayList<String> data = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
+                        data.add(document.getData().get("konten").toString());
 
-                        txtKonten.setText(document.getData().get("konten").toString());
                     }
 
+                    RecyclerView.Adapter mAdapter = new informasi_adapter(data);
+                    mRecyclerView.setAdapter(mAdapter);
+
                 } else {
-                    Toast.makeText(activity_informasi.this, "gagal menerima data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_informasi.this, "Gagal Menerima Data", Toast.LENGTH_SHORT).show();
 
                 }
 

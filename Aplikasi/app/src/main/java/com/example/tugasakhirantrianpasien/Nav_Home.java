@@ -91,7 +91,7 @@ public class Nav_Home extends AppCompatActivity
         mPoliklinik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent poliklinik = new Intent(Nav_Home.this, PoliKlinik.class);
+                Intent poliklinik = new Intent(Nav_Home.this, layout_poli.class);
                 startActivity(poliklinik);
             }
         });
@@ -153,7 +153,7 @@ public class Nav_Home extends AppCompatActivity
             Intent intent = new Intent(Nav_Home.this, jadwal.class);
             startActivity(intent);
         } else if (id == R.id.nav_poli) {
-            Intent intent = new Intent(Nav_Home.this, PoliKlinik.class);
+            Intent intent = new Intent(Nav_Home.this, layout_poli.class);
             startActivity(intent);
         } else if (id == R.id.nav_info) {
 

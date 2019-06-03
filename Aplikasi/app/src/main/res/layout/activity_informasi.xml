@@ -18,25 +18,25 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:text="INFORMASI"
-            android:textSize="50dp"/>
+            android:textSize="40dp"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_below="@+id/judulinformasi"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="25dp"
-        android:id="@+id/txtKonten"
-        android:textAlignment="center"
-        android:textSize="20dp"/>
+        android:layout_below="@+id/judulinformasi"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 
     <ImageView
         android:id="@+id/prefences"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:background="@drawable/backgroundlingkaranpink"

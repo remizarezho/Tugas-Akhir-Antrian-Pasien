@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".nomor_antrian2"></activity>
+        <activity android:name=".informasi_adapter"></activity>
+        <activity android:name=".layout_poli" />
+        <activity android:name=".nomor_antrian2" />
         <activity android:name=".ActivityTambahInformasi" />
         <activity android:name=".DetailPoli" />
         <activity android:name=".panggil_nomor" />
@@ -22,7 +24,6 @@
         <activity android:name=".nomor_antrian" />
         <activity android:name=".activity_informasi" />
         <activity android:name=".jadwal" />
-        <activity android:name=".PoliKlinik" />
         <activity android:name=".LihatDataPasien" />
         <activity android:name=".tambah_data_pasien" />
         <activity
