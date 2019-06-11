@@ -33,8 +33,9 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
     private Button mKembali;
     private EditText editIdDokter;
     private EditText editNamaDokter;
-    private EditText editJamPelayanan;
-    private EditText editHariPelayanan;
+    private EditText editSenkam;
+    private EditText editJumat;
+    private EditText editSabtu;
 
     Spinner spinner;
 
@@ -50,8 +51,9 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
         mKembali = findViewById(R.id.btnkembali);
         editIdDokter = findViewById(R.id.edt_idDok);
         editNamaDokter = findViewById(R.id.edt_namaDok);
-        editJamPelayanan = findViewById(R.id.edt_jamPelayanan);
-        editHariPelayanan = findViewById(R.id.edt_hariPelayanan);
+        editSenkam = findViewById(R.id.edt_senkam);
+        editJumat = findViewById(R.id.edt_jumat);
+        editSabtu = findViewById(R.id.edt_sabtu);
         spinner = findViewById(R.id.spinner1);
 
         mAuth = FirebaseAuth.getInstance();
@@ -94,15 +96,14 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
                             Log.w(String.valueOf("aaa"), "Error getting documents.", task.getException());
                         } }
                 });
-
-
     }
 
     private void registerDokter() {
         final String iddokter = editIdDokter.getText().toString().trim();
         final String namadokter = editNamaDokter.getText().toString().trim();
-        final String jampelayanan = editJamPelayanan.getText().toString().trim();
-        final String haripelayanan = editHariPelayanan.getText().toString().trim();
+        final String senkam = editSenkam.getText().toString().trim();
+        final String jumat = editJumat.getText().toString().trim();
+        final String sabtu = editSabtu.getText().toString().trim();
 
 
         if (iddokter.isEmpty()) {
@@ -117,15 +118,21 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
             return;
         }
 
-        if (jampelayanan.isEmpty()) {
-            editJamPelayanan.setError("Wajib diisi!");
-            editJamPelayanan.requestFocus();
+        if (senkam.isEmpty()) {
+            editSenkam.setError("Wajib diisi!");
+            editSenkam.requestFocus();
             return;
         }
 
-        if (haripelayanan.isEmpty()) {
-            editHariPelayanan.setError("Wajib diisi");
-            editHariPelayanan.requestFocus();
+        if (jumat.isEmpty()) {
+            editJumat.setError("Wajib diisi!");
+            editJumat.requestFocus();
+            return;
+        }
+
+        if (sabtu.isEmpty()) {
+            editSabtu.setError("Wajib diisi");
+            editSabtu.requestFocus();
             return;
         }
 
@@ -134,9 +141,10 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
         Pelayanan pelayanan = new Pelayanan(
                 iddokter,
                 namadokter,
-                jampelayanan,
-                spinner.getSelectedItem().toString(),
-                haripelayanan
+                senkam,
+                jumat,
+                sabtu,
+                spinner.getSelectedItem().toString()
         );
 
         Log.d("", pelayanan.toString());

@@ -62,18 +62,18 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Jam Pelayanan "/>
+                    android:text="Senin - Kamis"/>
                 <TextView
                     android:layout_width="5dp"
                     android:layout_height="wrap_content"
                     android:text=":"/>
-
                 <EditText
+                    android:id="@+id/edt_senkam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edt_jamPelayanan"
-                    android:hint="isi sesuai jam"/>
+                    android:hint="isi sesuai jam pelayanan"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,18 +81,37 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Hari Pelayanan "/>
+                    android:text="Jum'at"/>
                 <TextView
                     android:layout_width="5dp"
                     android:layout_height="wrap_content"
                     android:text=":"/>
-
                 <EditText
+                    android:id="@+id/edt_jumat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edt_hariPelayanan"
-                    android:hint="isi sesuai hari jaga"/>
+                    android:hint="isi sesuai jam pelayanan"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sabtu"/>
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content"
+                    android:text=":"/>
+                <EditText
+                    android:id="@+id/edt_sabtu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="isi sesuai jam pelayanan"/>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

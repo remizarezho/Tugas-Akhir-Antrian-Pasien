@@ -52,7 +52,7 @@ public class nomor_antrian2 extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         SimpleDateFormat format2= null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            format2 = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
+            format2 =new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
         }
         date= format2.format(new Date());
 
@@ -72,7 +72,7 @@ public class nomor_antrian2 extends AppCompatActivity {
 
     private void getNomorAntrianAnda(){
         isfound=false;
-        DatabaseReference myRef = database.getReference(date          );
+        DatabaseReference myRef = database.getReference(date);
 
 
         myRef.addValueEventListener(new ValueEventListener() {

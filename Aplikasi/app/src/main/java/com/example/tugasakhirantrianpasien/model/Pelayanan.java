@@ -3,8 +3,9 @@ package com.example.tugasakhirantrianpasien.model;
 public class Pelayanan {
     private String iddokter;
     private String namadokter;
-    private String jampelayanan;
-    private String haripelayanan;
+    private String senkam;
+    private String jumat;
+    private String sabtu;
     private String poli;
 
     public String getIddokter() {
@@ -23,20 +24,28 @@ public class Pelayanan {
         this.namadokter = namadokter;
     }
 
-    public String getJampelayanan() {
-        return jampelayanan;
+    public String getSenkam() {
+        return senkam;
     }
 
-    public void setJampelayanan(String jampelayanan) {
-        this.jampelayanan = jampelayanan;
+    public void setSenkam(String senkam) {
+        this.senkam = senkam;
     }
 
-    public String getHaripelayanan() {
-        return haripelayanan;
+    public String getJumat() {
+        return jumat;
     }
 
-    public void setHaripelayanan(String haripelayanan) {
-        this.haripelayanan = haripelayanan;
+    public void setJumat(String jumat) {
+        this.jumat = jumat;
+    }
+
+    public String getSabtu() {
+        return sabtu;
+    }
+
+    public void setSabtu(String sabtu) {
+        this.sabtu = sabtu;
     }
 
     public String getPoli() {
@@ -48,12 +57,13 @@ public class Pelayanan {
     }
 
 
-    public Pelayanan(String iddokter,String namadokter, String jampelayanan, String poli,
-                     String haripelayanan) {
+    public Pelayanan(String iddokter,String namadokter, String senkam, String jumat,
+                     String sabtu, String poli) {
         this.iddokter = iddokter;
         this.namadokter = namadokter;
-        this.jampelayanan = jampelayanan;
-        this.haripelayanan = haripelayanan;
-        this.poli =poli;
+        this.senkam = senkam;
+        this.jumat = jumat;
+        this.sabtu = sabtu;
+        this.poli = poli;
     }
 }

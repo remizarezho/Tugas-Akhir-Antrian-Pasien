@@ -34,8 +34,9 @@ public class layout_poli extends AppCompatActivity {
     private CardView mGigi;
 
     private TextView editNamaDokter;
-    private TextView editJamPelayanan;
-    private TextView editHariPelayanan;
+    private TextView editSenkam;
+    private TextView editJumat;
+    private TextView editSabtu;
 
     private FirebaseFirestore db;
 
@@ -79,8 +80,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -101,8 +103,9 @@ public class layout_poli extends AppCompatActivity {
                                                                if (document.get("poli").toString().equals("Ruang Pemeriksaan Umum")){
                                                                    Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                                                    editNamaDokter.setText(document.get("namadokter").toString());
-                                                                   editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                                                   editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                                                   editSenkam.setText(document.get("senkam").toString());
+                                                                   editJumat.setText(document.get("jumat").toString());
+                                                                   editSabtu.setText(document.get("sabtu").toString());
                                                                }
                                                            }
                                                        }
@@ -131,8 +134,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -153,8 +157,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Laktasi")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -183,8 +188,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -205,8 +211,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Gizi")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -235,8 +242,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -257,8 +265,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Kes. Usia Lanjut")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -287,8 +296,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -309,8 +319,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Imunisasi dan MTBS")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -339,8 +350,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -361,8 +373,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Sanitasi")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -391,8 +404,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -413,8 +427,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang KIA dan KB")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }
@@ -443,8 +458,9 @@ public class layout_poli extends AppCompatActivity {
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
                 editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editJamPelayanan =popupView.findViewById(R.id.edit_jamPel);
-                editHariPelayanan = popupView.findViewById(R.id.edit_hariPel);
+                editSenkam =popupView.findViewById(R.id.edit_hariPel);
+                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -465,8 +481,9 @@ public class layout_poli extends AppCompatActivity {
                                         if (document.get("poli").toString().equals("Ruang Kesehatan Gigi dan Mulut")){
                                             Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
                                             editNamaDokter.setText(document.get("namadokter").toString());
-                                            editJamPelayanan.setText(document.get("jampelayanan").toString());
-                                            editHariPelayanan.setText(document.get("haripelayanan").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
                                         }
                                     }
                                 }

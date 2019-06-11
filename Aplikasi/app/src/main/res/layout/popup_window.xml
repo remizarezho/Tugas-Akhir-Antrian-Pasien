@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:text=" "/>
         </LinearLayout>
-
         <LinearLayout
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -38,33 +37,51 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Jam Pelayanan "/>
-            <TextView
-                android:layout_width="5dp"
-                android:layout_height="wrap_content"
-                android:text=":"/>
-            <TextView
-                android:id="@+id/edit_jamPel"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text=" "/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Hari Pelayanan "/>
+                android:text="Senin - Kamis"/>
             <TextView
                 android:layout_width="5dp"
                 android:layout_height="wrap_content"
                 android:text=":"/>
             <TextView
                 android:id="@+id/edit_hariPel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text=" "/>
+        </LinearLayout>
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Jum'at"/>
+            <TextView
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/edit_hariPeljumat"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text=" "/>
+        </LinearLayout>
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Sabtu"/>
+            <TextView
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+            <TextView
+                android:id="@+id/edit_hariPelSabtu"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text=" "/>
