@@ -13,7 +13,7 @@ public class nomor_antrian extends AppCompatActivity {
 
     String poli;
     String nomor;
-    String nik;
+    String id;
     String nmPasien;
     String wkt;
 
@@ -23,6 +23,8 @@ public class nomor_antrian extends AppCompatActivity {
         setContentView(R.layout.activity_nomor_antrian);
         poli = getIntent().getStringExtra("poli");
         wkt = getIntent().getStringExtra("waktu");
+        id= getIntent().getStringExtra("id");
+        nmPasien = getIntent().getStringExtra("nama");
 
         rngPeriksa = findViewById(R.id.tv_ruangperiksa);
         nmrAntrian = findViewById(R.id.tv_nomorAntrian);
@@ -32,8 +34,8 @@ public class nomor_antrian extends AppCompatActivity {
 
         rngPeriksa.setText(poli);
         waktu.setText(wkt);
-        namaPasien.setText(tools.getSharedPreferenceString(this, "nama", ""));
-        noKtp.setText(tools.getSharedPreferenceString(this, "nik", ""));
+        namaPasien.setText(nmPasien);
+        noKtp.setText(id);
         nmrAntrian.setText(getIntent().getStringExtra("nomor"));
 
     }

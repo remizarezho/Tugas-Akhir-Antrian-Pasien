@@ -30,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +76,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private TextView mSignUp;
-    private TextView mLupaPassword;
+    private RelativeLayout relativeProgress;
+//    private TextView mLupaPassword;
     private Button mSignIn;
     private EditText email;
     private EditText password;
@@ -105,11 +107,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        relativeProgress = findViewById(R.id.relativeProgress);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+
+                    mSignIn.performClick();
+
+
+//                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -127,13 +134,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mSignUp = findViewById(R.id.belum_ada_akun);
-        mLupaPassword = findViewById(R.id.lupa_password);
+//        mLupaPassword = findViewById(R.id.lupa_password);
         mSignIn = findViewById(R.id.email_sign_in_button);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         progressBar2 = findViewById(R.id.progressbar_login);
 
-        mLupaPassword.setVisibility(View.GONE);
+//        mLupaPassword.setVisibility(View.GONE);
 
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -143,17 +150,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        mLupaPassword.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent lupapassword = new Intent(LoginActivity.this, LupaPassword.class);
-                startActivity(lupapassword);
-            }
-        });
+//        mLupaPassword.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent lupapassword = new Intent(LoginActivity.this, LupaPassword.class);
+//                startActivity(lupapassword);
+//            }
+//        });
 
         mSignIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                relativeProgress.setVisibility(View.VISIBLE);
+
 //             Intent signin = new Intent(LoginActivity.this, Nav_Home.class);
 //
 //                startActivity(signin);
@@ -170,7 +179,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-//                    progressBar.setVisibility(View.GONE);
+ relativeProgress.setVisibility(View.GONE);
+//
+//      progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             db.collection("akun")
                                     .get()
@@ -182,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                                    if (document.getData().get("email").equals(email1)){
                                                        tools.setSharedPreference(LoginActivity.this,"level", document.getData().get("level").toString());
+                                                       tools.setSharedPreference(LoginActivity.this,"bpjs", document.getData().get("bpjs").toString());
                                                        tools.setSharedPreference(LoginActivity.this,"nik", document.getData().get("nik").toString());
                                                        tools.setSharedPreference(LoginActivity.this,"nama", document.getData().get("nama").toString());
                                                        tools.setSharedPreference(LoginActivity.this,"isLogin", "1");
@@ -200,7 +212,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     });
 
                         } else {
-//
+                            relativeProgress.setVisibility(View.GONE);
 //                          Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             mPasswordView.setError(getString(R.string.error_incorrect_password));
                             mPasswordView.requestFocus();

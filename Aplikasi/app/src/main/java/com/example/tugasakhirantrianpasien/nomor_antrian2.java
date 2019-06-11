@@ -83,7 +83,10 @@ public class nomor_antrian2 extends AppCompatActivity {
                     Log.d("aaa", "onDataChange: ");
                     Log.d("aaa", "onDataChange: ");
                     if (userSnapshot.getChildrenCount()>0){
-                        if ( userSnapshot.child("nik").getValue().toString().equals(tools.getSharedPreferenceString(nomor_antrian2.this, "nik", ""))){
+                            if (userSnapshot.child("status").getValue().toString().equals("false") &&
+                                    userSnapshot.child("nik").getValue().toString()
+                                            .equals(tools.getSharedPreferenceString(nomor_antrian2
+                                                    .this, "nik", ""))){
                             isfound=true;
                             model = new NomorAntrianModel(
                                     userSnapshot.child("nik").getValue().toString(),
@@ -121,6 +124,8 @@ public class nomor_antrian2 extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                isfound=false;
+
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
                     Log.d("aaa", "onDataChange: ");
                     Log.d("aaa", "onDataChange: ");
