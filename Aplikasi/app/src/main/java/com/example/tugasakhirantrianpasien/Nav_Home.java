@@ -31,6 +31,8 @@ public class Nav_Home extends AppCompatActivity
     private TextView mNameProfil;
     private CardView mInformasi;
 
+    private MenuItem mSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,9 @@ public class Nav_Home extends AppCompatActivity
         mTvLevel = findViewById(R.id.judul_level);
         mPanggil = findViewById(R.id.panggil_nomor);
         mInformasi = findViewById(R.id.home_informasi);
+        mSetting = findViewById(R.id.nav_setting);
+
+        navigationView.getMenu().findItem(R.id.nav_setting).setVisible(false);
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
@@ -156,7 +161,8 @@ public class Nav_Home extends AppCompatActivity
             Intent intent = new Intent(Nav_Home.this, layout_poli.class);
             startActivity(intent);
         } else if (id == R.id.nav_info) {
-
+            Intent intent = new Intent(Nav_Home.this, activity_informasi.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_logout) {
