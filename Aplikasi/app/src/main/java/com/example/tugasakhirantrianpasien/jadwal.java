@@ -65,6 +65,8 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
     ArrayList<String> dataAkun = new ArrayList<>();
     ArrayList<String> dataNIK = new ArrayList<>();
     ArrayList<String> dataBPJS = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,9 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
         month = c.get(Calendar.MONTH);
         day = c.get(Calendar.DAY_OF_MONTH);
 
+        if (tools.getSharedPreferenceString(this, "level", "").equals("0")) {
+            btnLihatNomor.setVisibility(View.GONE);
+        }
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
          linearPasien.setVisibility(View.GONE);

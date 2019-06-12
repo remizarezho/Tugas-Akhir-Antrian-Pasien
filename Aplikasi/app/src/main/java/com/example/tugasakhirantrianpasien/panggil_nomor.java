@@ -38,7 +38,7 @@ public class panggil_nomor extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        onDestroy();
+        //onDestroy();
         finish();
     }
 
