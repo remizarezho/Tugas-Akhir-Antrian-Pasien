@@ -42,6 +42,7 @@ public class profile extends AppCompatActivity {
     private TextView notlp;
     private TextView password;
     private ImageView avatar;
+    private ImageView avatarMini;
 
     private FirebaseFirestore db;
     private Uri filePath;
@@ -62,7 +63,6 @@ public class profile extends AppCompatActivity {
                 uploadImage();
 
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-//                imageView.setImageBitmap(bitmap);
             }
             catch (IOException e)
             {
@@ -89,6 +89,7 @@ public class profile extends AppCompatActivity {
         password = findViewById(R.id.pass_profil);
 
         avatar = findViewById(R.id.avatar_profil);
+        avatarMini = findViewById(R.id.avatar_mini);
 
         avatar.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -98,6 +99,16 @@ public class profile extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
                 return false;
+            }
+        });
+        avatarMini.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                return;
             }
         });
 

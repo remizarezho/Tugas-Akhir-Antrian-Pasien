@@ -57,13 +57,13 @@
                         android:layout_marginTop="45dp"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        android:src="@drawable/logo_puskesmas"
+                        android:src="@drawable/logo_batu"
                         android:layout_marginRight="40dp"/>
                     <ImageView
                         android:layout_marginTop="45dp"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        android:src="@drawable/logo_batu"/>
+                        android:src="@drawable/logo_puskesmas"/>
                 </LinearLayout>
                 <TextView
                     android:layout_marginTop="25dp"

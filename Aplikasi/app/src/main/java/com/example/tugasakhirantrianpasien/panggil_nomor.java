@@ -38,7 +38,7 @@ public class panggil_nomor extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //onDestroy();
+        textToSpeech.stop();
         finish();
     }
 
@@ -62,7 +62,7 @@ public class panggil_nomor extends AppCompatActivity {
         date= format2.format(new Date());
 
 
-
+        if(textToSpeech ==null){
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -83,13 +83,16 @@ public class panggil_nomor extends AppCompatActivity {
                 }
             }
         });
+        }
+
+
 
         mplayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String data = "panggilan nomor antrian " + mNomorAntrian.getText().toString();
                 Log.i("TTS", "button clicked: " + data);
-                int speechStatus = textToSpeech.speak(data, TextToSpeech.QUEUE_FLUSH, null);
+                int speechStatus = textToSpeech.speak(data, TextToSpeech.QUEUE_ADD, null);
 
                 if (speechStatus == TextToSpeech.ERROR) {
                     Log.e("TTS", "Error in converting Text to Speech!");
