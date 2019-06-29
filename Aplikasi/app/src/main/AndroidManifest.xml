@@ -30,7 +30,6 @@
             android:name=".Nav_Home"
             android:label="@string/title_activity_nav__home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LupaPassword" />
         <activity android:name=".SignUp" />
         <activity
             android:name=".LoginActivity"

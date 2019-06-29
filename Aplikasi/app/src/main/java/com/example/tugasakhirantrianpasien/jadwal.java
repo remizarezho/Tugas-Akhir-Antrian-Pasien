@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tugasakhirantrianpasien.model.Akun;
 import com.example.tugasakhirantrianpasien.model.NomorAntrianModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,9 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
-import java.text.BreakIterator;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 
 public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -57,15 +52,32 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
     LinearLayout linearPasien;
     private int year, month, day;
 
-    private FirebaseFirestore db;
+    private FirebaseFirestore dbFirestore;
+    DatabaseReference myRefdbRealtime;
+    ValueEventListener listener;
     boolean cekSekali=false;
+
     String nik="";
     String nama="";
     String bpjs="";
     ArrayList<String> dataAkun = new ArrayList<>();
     ArrayList<String> dataNIK = new ArrayList<>();
     ArrayList<String> dataBPJS = new ArrayList<>();
+    String id;
+    boolean isExecute = true;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disConnectReailtimeDB();
+    }
+
+    private void disConnectReailtimeDB(){
+
+        if (myRefdbRealtime != null && listener != null) {
+            myRefdbRealtime.removeEventListener(listener);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +146,7 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 
                                 }
                             });
-
                         }
-
                     }
                 }
             });
@@ -166,6 +176,8 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 //            }
 //        });
 
+
+
         btnlanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,22 +189,45 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference(date1.getText().toString());
-
+                myRefdbRealtime = database.getReference(date1.getText().toString());
 
 //                Read from the database
-                myRef.addValueEventListener(new ValueEventListener() {
+                listener = myRefdbRealtime. addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
+                        isExecute =true;
 
+                        if (linearPasien.getVisibility()==View.VISIBLE){
+                            nama= jadwal.this.nama;
+
+                            if (jadwal.this.bpjs.isEmpty()){
+                                id= jadwal.this.nik;
+                            }else {
+                                id= jadwal.this.bpjs;
+                            }
+                        }else {
+                            if (tools.getSharedPreferenceString(jadwal.this, "bpjs", "").isEmpty()){
+                                id = tools.getSharedPreferenceString(jadwal.this, "nik", "");
+                            }else {
+                                id = tools.getSharedPreferenceString(jadwal.this, "bpjs", "");
+                            }
+                            nama= tools.getSharedPreferenceString(jadwal.this, "nama", "");
+                        }
 
                         if (!cekSekali){
                             cekSekali =true;
 
+                            for (DataSnapshot snapshot:  dataSnapshot.getChildren()) {
+                                if (snapshot.getChildrenCount() > 0) {
+                                    if (snapshot.child("nik").getValue().toString().equals(id) &&
+                                            snapshot.child("status").getValue().toString().equals("false")) {
+                                        isExecute = false;
+                                    }
+                                }
+                            }
 
-                        Log.d("aaa", "aaa");
+                            if (isExecute){
+//                        Log.d("aaa", "aaa");
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         final Intent lanjut = new Intent(jadwal.this, nomor_antrian.class);
                         int nomor= (int) (dataSnapshot.getChildrenCount());
@@ -205,9 +240,9 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 
                         //////////////////////
 
-                            db = FirebaseFirestore.getInstance();
+                            dbFirestore = FirebaseFirestore.getInstance();
                             final int finalNomor = nomor;
-                            db.collection("limit")
+                            dbFirestore.collection("limit")
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
@@ -218,26 +253,7 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
                                                     Log.d(String.valueOf("bbb"), document.getId() + " => " + document.getData());
                                                  if ( finalNomor <= (Integer.parseInt(document.getData().get("nomor").toString())) ){
 
-                                                     String nama;
-                                                     String id;
-                                                     if (linearPasien.getVisibility()==View.VISIBLE){
-                                                         nama= jadwal.this.nama;
 
-                                                         if (jadwal.this.bpjs.isEmpty()){
-                                                             id= jadwal.this.nik;
-                                                         }else {
-                                                             id= jadwal.this.bpjs;
-                                                         }
-                                                     }else {
-
-                                                         if (tools.getSharedPreferenceString(jadwal.this, "bpjs", "").isEmpty()){
-                                                             id = tools.getSharedPreferenceString(jadwal.this, "nik", "");
-                                                         }else {
-                                                             id = tools.getSharedPreferenceString(jadwal.this, "bpjs", "");
-                                                         }
-
-                                                         nama= tools.getSharedPreferenceString(jadwal.this, "nama", "");
-                                                     }
 
 
 
@@ -277,28 +293,37 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
                                     });
 
 
-
-
-                        ////////////////////////////
-
-
+                        }else {
+                                cekSekali =false;
+                                Toast.makeText(jadwal.this, "Nomor Antrian Anda Belum Terselesaikan", Toast.LENGTH_SHORT).show();
+                                disConnectReailtimeDB();
+                                return ;
+                            }
                         }
-                    }
+
+
+
+                        disConnectReailtimeDB();
+                        }
+
 
                     @Override
                     public void onCancelled(DatabaseError error) {
                         // Failed to read value
 
                         cekSekali =false;
+                        disConnectReailtimeDB();
 
                     }
                 });
 
+
+
             }
         });
 
-        db = FirebaseFirestore.getInstance();
-        db.collection("poli")
+        dbFirestore = FirebaseFirestore.getInstance();
+        dbFirestore.collection("poli")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

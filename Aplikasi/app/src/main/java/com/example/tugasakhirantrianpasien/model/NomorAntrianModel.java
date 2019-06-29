@@ -2,12 +2,16 @@ package com.example.tugasakhirantrianpasien.model;
 
 public class NomorAntrianModel  {
 
-    private String nik;
-    private String nomor;
-    private String nama;
-    private String poli;
-    private String waktu;
-    private Boolean status;
+    private String nik="";
+    private String nomor="";
+    private String nama="";
+    private String poli="";
+    private String waktu="";
+    private Boolean status=false;
+
+    public NomorAntrianModel(){
+
+    }
 
     public NomorAntrianModel(String nik, String nomor, String nama, String poli, String waktu, Boolean status){
         this. nik = nik;

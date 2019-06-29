@@ -35,6 +35,8 @@ public class panggil_nomor extends AppCompatActivity {
     String date="";
     NomorAntrianModel  model ;
     FirebaseDatabase database;
+    DatabaseReference myRef;
+    ValueEventListener listener;
 
     @Override
     public void onBackPressed() {
@@ -51,8 +53,8 @@ public class panggil_nomor extends AppCompatActivity {
         mplayBtn = findViewById(R.id.btn_play);
         mnextBtn = findViewById(R.id.btn_next);
         database = FirebaseDatabase.getInstance();
-        getNomorAntrian();
-
+     ;
+        model =new NomorAntrianModel();
 
 
         SimpleDateFormat format2= null;
@@ -60,6 +62,8 @@ public class panggil_nomor extends AppCompatActivity {
             format2 = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
         }
         date= format2.format(new Date());
+
+        getNomorAntrian(false);
 
 
         if(textToSpeech ==null){
@@ -90,19 +94,27 @@ public class panggil_nomor extends AppCompatActivity {
         mplayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = "panggilan nomor antrian " + mNomorAntrian.getText().toString();
-                Log.i("TTS", "button clicked: " + data);
-                int speechStatus = textToSpeech.speak(data, TextToSpeech.QUEUE_ADD, null);
+                if (!model.getNik().isEmpty()) {
+                    String data = "panggilan nomor antrian " + mNomorAntrian.getText().toString();
+                    Log.i("TTS", "button clicked: " + data);
+                    int speechStatus = textToSpeech.speak(data, TextToSpeech.QUEUE_ADD, null);
 
-                if (speechStatus == TextToSpeech.ERROR) {
-                    Log.e("TTS", "Error in converting Text to Speech!");
+                    if (speechStatus == TextToSpeech.ERROR) {
+                        Log.e("TTS", "Error in converting Text to Speech!");
+                    }
+                }else {
+                    Toast.makeText(panggil_nomor.this, "Tidak ada antrian hari ini", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
         mnextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!model.getNik().isEmpty()){
+
+
                 DatabaseReference myRef = database.getReference(date+"/"+
                         model.getNomor()+"-" +   model.getNik());
 
@@ -120,55 +132,79 @@ public class panggil_nomor extends AppCompatActivity {
                                                    @NonNull DatabaseReference databaseReference) {
 
                                 ////
-                                getNomorAntrian();
+                                getNomorAntrian(true);
                             }
                         }
                 );
+                }else {
+                    Toast.makeText(panggil_nomor.this, "Tidak ada antrian hari ini", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disConnectReailtimeDB();
+    }
+
+    private void disConnectReailtimeDB(){
+
+        if (myRef != null && listener != null) {
+            myRef.removeEventListener(listener);
+        }
+    }
+
     boolean isfound=false;
 
-    private void getNomorAntrian(){
+    private void getNomorAntrian(final boolean useSound){
         isfound=false;
-        DatabaseReference myRef = database.getReference(date);
+        myRef = database.getReference(date);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        listener = myRef. addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                    for (DataSnapshot snapshot:  userSnapshot.getChildren()) {
-                        Log.d("aaa", "onDataChange: ");
-                        if (snapshot.getChildrenCount() > 0) {
-                            if (snapshot.child("status").getValue().toString().equals("false")) {
-                                isfound = true;
-                                model = new NomorAntrianModel(
-                                        snapshot.child("nik").getValue().toString(),
-                                        snapshot.child("nomor").getValue().toString(),
-                                        snapshot.child("nama").getValue().toString(),
-                                        snapshot.child("poli").getValue().toString(),
-                                        snapshot.child("waktu").getValue().toString(),
-                                        Boolean.getBoolean(snapshot.child("status").getValue().toString())
-                                );
-                                mNomorAntrian.setText(model.getNomor());
+                    if (userSnapshot.hasChild("status")){
+                    if (userSnapshot.getChildrenCount() > 5) {
 
-                                mplayBtn.performClick();
-                                break;
-                            }
+//                        for (DataSnapshot snapshot:  userSnapshot.getChildren()) {
+                            Log.d("aaa", "onDataChange: ");
+
+                                if (userSnapshot.child("status").getValue().toString().equals("false")) {
+                                    isfound = true;
+                                    model = new NomorAntrianModel(
+                                            userSnapshot.child("nik").getValue().toString(),
+                                            userSnapshot.child("nomor").getValue().toString(),
+                                            userSnapshot.child("nama").getValue().toString(),
+                                            userSnapshot.child("poli").getValue().toString(),
+                                            userSnapshot.child("waktu").getValue().toString(),
+                                            Boolean.getBoolean(userSnapshot.child("status").getValue().toString())
+                                    );
+                                    mNomorAntrian.setText(model.getNomor());
+
+                                    if (useSound){
+                                        mplayBtn.performClick();
+                                    }
+                                    break;
+                                }
+//                            }
 
                         }
                     }
                 }
 
                 if (!isfound){
-                    Toast.makeText(panggil_nomor.this, "Batas maksimal antrian", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(panggil_nomor.this, "Tidak ada antrian lagi", Toast.LENGTH_SHORT).show();
                 }
+                disConnectReailtimeDB();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-
+                disConnectReailtimeDB();
             }
         });
 

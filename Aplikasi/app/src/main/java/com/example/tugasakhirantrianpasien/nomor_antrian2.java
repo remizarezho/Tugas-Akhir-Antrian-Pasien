@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tugasakhirantrianpasien.model.NomorAntrianModel;
 import com.google.firebase.database.DataSnapshot;
@@ -14,7 +13,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class nomor_antrian2 extends AppCompatActivity {
@@ -33,6 +34,10 @@ public class nomor_antrian2 extends AppCompatActivity {
     String date="";
     NomorAntrianModel  model ;
     NomorAntrianModel  modelNow ;
+    DatabaseReference myRefdbRealtimeNomorKita;
+    DatabaseReference myRefdbRealtimeNomorLain;
+    ValueEventListener listenerNomorKita;
+    ValueEventListener listenerNomorLain;
 
     TextView tv_nomor_anda,tv_nomor_now, tv_ruangperiksa_anda, tv_waktu_anda;
     @Override
@@ -56,26 +61,38 @@ public class nomor_antrian2 extends AppCompatActivity {
         }
         date= format2.format(new Date());
 
-//        rngPeriksa.setText(poli);
-//        waktu.setText(wkt);
-//        namaPasien.setText(tools.getSharedPreferenceString(this, "nama", ""));
-//        noKtp.setText(tools.getSharedPreferenceString(this, "nik", ""));
-//        nmrAntrian.setText(getIntent().getStringExtra("nomor"));
-
-
         getNomorAntrianAnda();
-        getNomorAntrianRealTime();
+        getNomorAntrianLain();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disConnectReailtimeDB();
     }
 
     boolean isfound=false;
 
+    private void disConnectReailtimeDB(){
+
+        if (myRefdbRealtimeNomorKita != null && listenerNomorKita != null) {
+            myRefdbRealtimeNomorKita.removeEventListener(listenerNomorKita);
+        }
+
+        if (myRefdbRealtimeNomorLain != null && listenerNomorLain != null) {
+            myRefdbRealtimeNomorLain.removeEventListener(listenerNomorLain);
+        }
+
+
+    }
+
     private void getNomorAntrianAnda(){
         isfound=false;
-        DatabaseReference myRef = database.getReference(date);
+         myRefdbRealtimeNomorKita = database.getReference(date);
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        listenerNomorKita = myRefdbRealtimeNomorKita. addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -116,22 +133,34 @@ public class nomor_antrian2 extends AppCompatActivity {
 
     }
 
-    private void getNomorAntrianRealTime(){
+    private void getNomorAntrianLain(){
         isfound=false;
-        DatabaseReference myRef = database.getReference(date);
+        myRefdbRealtimeNomorLain = database.getReference(date);
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        listenerNomorLain = myRefdbRealtimeNomorLain. addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 isfound=false;
 
+                int index=0;
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    index ++;
                     Log.d("aaa", "onDataChange: ");
                     Log.d("aaa", "onDataChange: ");
                     if (userSnapshot.getChildrenCount()>0){
                         if (userSnapshot.child("status").getValue().toString().equals("false")) {
                             isfound=true;
+
+                        }else {
+                            if (index ==dataSnapshot.getChildrenCount()){
+                                isfound =true;
+                            }
+                        }
+
+
+
+                        if (isfound){
                             modelNow = new NomorAntrianModel(
                                     userSnapshot.child("nik").getValue().toString(),
                                     userSnapshot.child("nomor").getValue().toString(),
