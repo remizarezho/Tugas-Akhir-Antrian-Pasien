@@ -68,10 +68,10 @@ public class layout_poli extends AppCompatActivity {
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             mTambahData.setVisibility(View.GONE);
-        }else {
+        } else {
 
         }
-        
+
         mUmum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +79,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -95,22 +95,20 @@ public class layout_poli extends AppCompatActivity {
                 db.collection("pelayanan")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                   @Override
-                                                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                       if (task.isSuccessful()) {
-                                                           final ArrayList<String> data = new ArrayList<>();
-                                                           for (QueryDocumentSnapshot document : task.getResult()) {
-                                                               if (document.get("poli").toString().equals("Ruang Pemeriksaan Umum")){
-                                                                   Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
-                                                                   editNamaDokter.setText(document.get("namadokter").toString());
-                                                                   editSenkam.setText(document.get("senkam").toString());
-                                                                   editJumat.setText(document.get("jumat").toString());
-                                                                   editSabtu.setText(document.get("sabtu").toString());
-                                                               }
-                                                           }
-                                                       }
-                                                   }
-                                               });
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if (document.get("poli").toString().equals("Ruang Pemeriksaan Umum")) {
+                                            editNamaDokter.setText(document.get("namadokter").toString());
+                                            editSenkam.setText(document.get("senkam").toString());
+                                            editJumat.setText(document.get("jumat").toString());
+                                            editSabtu.setText(document.get("sabtu").toString());
+                                        }
+                                    }
+                                }
+                            }
+                        });
 
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window tolken
@@ -133,9 +131,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -152,10 +150,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Laktasi")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Laktasi")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -187,9 +183,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -206,10 +202,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Gizi")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Gizi")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -241,9 +235,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -260,10 +254,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Kes. Usia Lanjut")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Kes. Usia Lanjut")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -295,9 +287,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -314,10 +306,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Imunisasi dan MTBS")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Imunisasi dan MTBS")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -349,9 +339,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -368,10 +358,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Sanitasi")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Sanitasi")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -403,9 +391,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -422,10 +410,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang KIA dan KB")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang KIA dan KB")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());
@@ -457,9 +443,9 @@ public class layout_poli extends AppCompatActivity {
                         getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
-                editNamaDokter =popupView.findViewById(R.id.edit_namaDok);
-                editSenkam =popupView.findViewById(R.id.edit_hariPel);
-                editJumat =popupView.findViewById(R.id.edit_hariPeljumat);
+                editNamaDokter = popupView.findViewById(R.id.edit_namaDok);
+                editSenkam = popupView.findViewById(R.id.edit_hariPel);
+                editJumat = popupView.findViewById(R.id.edit_hariPeljumat);
                 editSabtu = popupView.findViewById(R.id.edit_hariPelSabtu);
 
                 // create the popup window
@@ -476,10 +462,8 @@ public class layout_poli extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    final ArrayList<String> data = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.get("poli").toString().equals("Ruang Kesehatan Gigi dan Mulut")){
-                                            Log.d("hasil poli", "onComplete: "+document.get("poli").toString());
+                                        if (document.get("poli").toString().equals("Ruang Kesehatan Gigi dan Mulut")) {
                                             editNamaDokter.setText(document.get("namadokter").toString());
                                             editSenkam.setText(document.get("senkam").toString());
                                             editJumat.setText(document.get("jumat").toString());

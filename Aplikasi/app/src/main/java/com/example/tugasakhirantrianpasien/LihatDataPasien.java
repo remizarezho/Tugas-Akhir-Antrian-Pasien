@@ -66,7 +66,6 @@ public class LihatDataPasien extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             final ArrayList<String> data = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(String.valueOf("bbb"), document.getId() + " => " + document.getData());
                                 if (document.getData().get("level").toString().equals("1")) {
                                     data.add(document.getData().get("nama").toString());
                                 }
@@ -78,8 +77,6 @@ public class LihatDataPasien extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     akunwes = new ArrayList<>();
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        Log.d(TAG, document.getId() + " => " + document.getData());
-
                                                         Akun akun = new Akun(
                                                                 document.getData().get("nik").toString(),
                                                                 document.getData().get("nama").toString(),
@@ -105,7 +102,7 @@ public class LihatDataPasien extends AppCompatActivity {
                                         });
 
                             }
-                        }else{
+                        } else {
                             Log.w(String.valueOf("aaa"), "Error getting documents.", task.getException());
                         }
                     }

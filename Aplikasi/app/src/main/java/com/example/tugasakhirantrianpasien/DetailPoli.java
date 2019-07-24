@@ -27,7 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class DetailPoli extends AppCompatActivity   implements AdapterView.OnItemSelectedListener {
+public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Button mSave;
     private Button mKembali;
@@ -65,14 +65,12 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
                 finish();
             }
         });
-
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerDokter();
             }
         });
-
 
         db = FirebaseFirestore.getInstance();
         db.collection("poli")
@@ -94,7 +92,8 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
                             }
                         } else {
                             Log.w(String.valueOf("aaa"), "Error getting documents.", task.getException());
-                        } }
+                        }
+                    }
                 });
     }
 
@@ -164,6 +163,7 @@ public class DetailPoli extends AppCompatActivity   implements AdapterView.OnIte
                     }
                 });
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();

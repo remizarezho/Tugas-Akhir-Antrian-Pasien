@@ -50,8 +50,8 @@ public class activity_informasi extends AppCompatActivity {
         });
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
-           tomboltambah.setVisibility(View.GONE);
-        }else {
+            tomboltambah.setVisibility(View.GONE);
+        } else {
 
         }
 
@@ -69,18 +69,14 @@ public class activity_informasi extends AppCompatActivity {
 
     //membuat tulisan menjadi ganti secara otomatis
     private void getData() {
-
         final CollectionReference dbAkun = db.collection("informasi");
-
-        dbAkun
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        dbAkun.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     final ArrayList<String> data = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         data.add(document.getData().get("konten").toString());
-
                     }
 
                     RecyclerView.Adapter mAdapter = new informasi_adapter(data);
@@ -90,14 +86,11 @@ public class activity_informasi extends AppCompatActivity {
                     Toast.makeText(activity_informasi.this, "Gagal Menerima Data", Toast.LENGTH_SHORT).show();
 
                 }
-
             }
 
         });
-
     }
-
-};
+}
 
 
 

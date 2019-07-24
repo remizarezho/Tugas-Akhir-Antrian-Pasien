@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class informasi_adapter extends RecyclerView.Adapter<informasi_adapter.ViewHolder> {
-    private TextView mKonten;
     ArrayList<String> dataGlobal;
 
     public informasi_adapter(ArrayList<String> dataGlobal) {
@@ -40,8 +39,8 @@ public class informasi_adapter extends RecyclerView.Adapter<informasi_adapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView konten;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             konten = itemView.findViewById(R.id.tvKonten);

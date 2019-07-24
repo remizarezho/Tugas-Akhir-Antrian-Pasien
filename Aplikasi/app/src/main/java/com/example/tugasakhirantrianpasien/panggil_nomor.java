@@ -113,11 +113,8 @@ public class panggil_nomor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!model.getNik().isEmpty()){
-
-
                 DatabaseReference myRef = database.getReference(date+"/"+
                         model.getNomor()+"-" +   model.getNik());
-
                 NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(
                         model.getNik(),
                         String.valueOf(model.getNomor()),
@@ -125,13 +122,10 @@ public class panggil_nomor extends AppCompatActivity {
                         model.getPoli(),
                         model.getWaktu(), true
                 );
-
                 myRef.setValue(nomorAntrianModel, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError databaseError,
                                                    @NonNull DatabaseReference databaseReference) {
-
-                                ////
                                 getNomorAntrian(true);
                             }
                         }

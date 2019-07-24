@@ -31,7 +31,8 @@ public class ActivityTambahInformasi extends AppCompatActivity {
     private Button SaveDataInformasi;
     private Button KembaliInformasi;
     private FirebaseFirestore db;
-    boolean isUpdate=false;
+    boolean isUpdate = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +43,21 @@ public class ActivityTambahInformasi extends AppCompatActivity {
 
         KembaliInformasi = findViewById(R.id.btn_kembaliinformasi);
 
+        KembaliInformasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         db = FirebaseFirestore.getInstance();
-
         SaveDataInformasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (Informasi.getText().toString().isEmpty()) {
                     Toast.makeText(ActivityTambahInformasi.this, "Tidak boleh kosong", Toast.LENGTH_SHORT).show();
-                    finish();
+                    return;
                 }
 
 
@@ -63,16 +67,14 @@ public class ActivityTambahInformasi extends AppCompatActivity {
                 informasi.put("konten", Informasi.getText().toString());
 
 
-
                 //update
-                dbAkun
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                dbAkun.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                isUpdate=true;
+                                isUpdate = true;
 
                                 Toast.makeText(ActivityTambahInformasi.this, "berhasil ditambahkan", Toast.LENGTH_LONG).show();
                                 dbAkun.document(document.getId()).set(informasi, SetOptions.merge());
@@ -80,7 +82,7 @@ public class ActivityTambahInformasi extends AppCompatActivity {
 
                             }
 
-                            if (!isUpdate){//insertdata
+                            if (!isUpdate) {//insertdata
                                 //ngesafe ke firebase nya
                                 dbAkun.add(informasi)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

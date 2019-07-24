@@ -30,11 +30,6 @@
     <item android:title="Manage">
         <menu>
             <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Settings" />
-
-            <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="Sign Out" />

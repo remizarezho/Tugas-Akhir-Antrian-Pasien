@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private TextView mSignUp;
     private RelativeLayout relativeProgress;
-//    private TextView mLupaPassword;
     private Button mSignIn;
     private EditText email;
     private EditText password;
@@ -112,11 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-
                     mSignIn.performClick();
-
-
-//                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -134,13 +129,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mSignUp = findViewById(R.id.belum_ada_akun);
-//        mLupaPassword = findViewById(R.id.lupa_password);
         mSignIn = findViewById(R.id.email_sign_in_button);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         progressBar2 = findViewById(R.id.progressbar_login);
-
-//        mLupaPassword.setVisibility(View.GONE);
 
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -150,28 +142,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-//        mLupaPassword.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent lupapassword = new Intent(LoginActivity.this, LupaPassword.class);
-//                startActivity(lupapassword);
-//            }
-//        });
 
         mSignIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                relativeProgress.setVisibility(View.VISIBLE);
-
-//             Intent signin = new Intent(LoginActivity.this, Nav_Home.class);
-//
-//                startActivity(signin);
-
                 if ( email.getText().toString().isEmpty()||password.getText().toString().isEmpty()) {
-
                 return;
                 }
-
+                  relativeProgress.setVisibility(View.VISIBLE);
                 // Store values at the time of the login attempt.
                 final String email1 = email.getText().toString();
                 String password1 = password.getText().toString();
@@ -179,9 +157,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mAuth.signInWithEmailAndPassword(email1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
- relativeProgress.setVisibility(View.GONE);
-//
-//      progressBar.setVisibility(View.GONE);
+                 relativeProgress.setVisibility(View.GONE);
+
                         if (task.isSuccessful()) {
                             db.collection("akun")
                                     .get()
@@ -213,7 +190,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         } else {
                             relativeProgress.setVisibility(View.GONE);
-//                          Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             mPasswordView.setError(getString(R.string.error_incorrect_password));
                             mPasswordView.requestFocus();
                         }
@@ -435,24 +411,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-//
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-
-
-
 
             // TODO: register the new account here.
             return true;

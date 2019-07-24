@@ -39,13 +39,13 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
 
     FirebaseFirestore db;
     PopupWindow popupWindow2;
-    List<Akun> akunwes  = new ArrayList<>();
+    List<Akun> akunwes = new ArrayList<>();
 
-    public LihatDataPasien2(ArrayList<String> data, Context context,View relativeTambahDataPasien, List<Akun> akunwes ) {
+    public LihatDataPasien2(ArrayList<String> data, Context context, View relativeTambahDataPasien, List<Akun> akunwes) {
         dataGlobal = data;
-        this.context=context;
-        this.relativeTambahDataPasien=relativeTambahDataPasien;
-        this.akunwes=akunwes;
+        this.context = context;
+        this.relativeTambahDataPasien = relativeTambahDataPasien;
+        this.akunwes = akunwes;
     }
 
     @NonNull
@@ -76,36 +76,34 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
         TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
+            //untuk logika didalam adapter
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageJudul);
             textView = itemView.findViewById(R.id.tvJudul);
 
             // on item click
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // get position
                     int pos = getAdapterPosition();
 
                     // check if item still exists
-                    if(pos != RecyclerView.NO_POSITION){
+                    if (pos != RecyclerView.NO_POSITION) {
                         String clickedDataItem = dataGlobal.get(pos);
 
-                        boolean visible=false;
+                        boolean visible = false;
 
-                        for (int i = 0; i <akunwes.size() ; i++) {
+                        for (int i = 0; i < akunwes.size(); i++) {
                             if (akunwes.get(i).getNama().equals(clickedDataItem)) {
 
-                                visible=true;
+                                visible = true;
                                 Toast.makeText(v.getContext(), "You clicked " + clickedDataItem, Toast.LENGTH_SHORT).show();
-                                onButtonShowPopupWindowClick(relativeTambahDataPasien,clickedDataItem,akunwes.get(i));
-
+                                onButtonShowPopupWindowClick(relativeTambahDataPasien, clickedDataItem, akunwes.get(i));
                                 break;
                             }
-
                         }
-
-                        if (!visible){
+                        if (!visible) {
                             Toast.makeText(v.getContext(), "Tidak ada data pasien", Toast.LENGTH_SHORT).show();
                         }
 
@@ -124,8 +122,8 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
             LinearLayout Linier_pasienBpjs = popupView.findViewById(R.id.Linier_pasienBpjs);
             LinearLayout Linier_pasienNik = popupView.findViewById(R.id.Linier_pasienNik);
 
-            editNikPop =popupView.findViewById(R.id.edit_nikPop);
-            editNamaPop =popupView.findViewById(R.id.edit_namaPop);
+            editNikPop = popupView.findViewById(R.id.edit_nikPop);
+            editNamaPop = popupView.findViewById(R.id.edit_namaPop);
             editTglPop = popupView.findViewById(R.id.edit_tglPop);
             editAlamatPop = popupView.findViewById(R.id.edit_alamatPop);
             editTeleponPop = popupView.findViewById(R.id.edit_teleponPop);
@@ -140,9 +138,9 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
             popupWindow2 = new PopupWindow(popupView, width, height, focusable);
 
             //menghilangkan kalok Bpjs/Nik tidak di isi
-            if (akunwes.getBpjs().isEmpty()){
+            if (akunwes.getBpjs().isEmpty()) {
                 Linier_pasienBpjs.setVisibility(View.GONE);
-            }else {
+            } else {
                 Linier_pasienNik.setVisibility(View.GONE);
             }
 

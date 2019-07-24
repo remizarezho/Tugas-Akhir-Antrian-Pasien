@@ -62,9 +62,7 @@ public class Nav_Home extends AppCompatActivity
         mTvLevel = findViewById(R.id.judul_level);
         mPanggil = findViewById(R.id.panggil_nomor);
         mInformasi = findViewById(R.id.home_informasi);
-        mSetting = findViewById(R.id.nav_setting);
 
-        navigationView.getMenu().findItem(R.id.nav_setting).setVisible(false);
 
         if (tools.getSharedPreferenceString(this, "level", "").equals("1")) {
             navigationView.getMenu().findItem(R.id.nav_data_pasien).setVisible(false);
@@ -163,8 +161,6 @@ public class Nav_Home extends AppCompatActivity
         } else if (id == R.id.nav_info) {
             Intent intent = new Intent(Nav_Home.this, activity_informasi.class);
             startActivity(intent);
-        } else if (id == R.id.nav_setting) {
-
         } else if (id == R.id.nav_logout) {
             tools.setSharedPreference(Nav_Home.this,"isLogin", "0");
             Intent logout = new Intent(Nav_Home.this, LoginActivity.class);
