@@ -60,12 +60,10 @@ public class ActivityTambahInformasi extends AppCompatActivity {
                     return;
                 }
 
-
                 final CollectionReference dbAkun = db.collection("informasi");
 
                 final Map<String, Object> informasi = new HashMap<>();
                 informasi.put("konten", Informasi.getText().toString());
-
 
                 //update
                 dbAkun.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -73,13 +71,11 @@ public class ActivityTambahInformasi extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
                                 isUpdate = true;
-
-                                Toast.makeText(ActivityTambahInformasi.this, "berhasil ditambahkan", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ActivityTambahInformasi.this, "Informasi telah di perbaharui",
+                                        Toast.LENGTH_LONG).show();
                                 dbAkun.document(document.getId()).set(informasi, SetOptions.merge());
                                 finish();
-
                             }
 
                             if (!isUpdate) {//insertdata
@@ -88,7 +84,8 @@ public class ActivityTambahInformasi extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
-                                                Toast.makeText(ActivityTambahInformasi.this, "berhasil ditambahkan", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(ActivityTambahInformasi.this, "Informasi telah di tambahkan",
+                                                        Toast.LENGTH_LONG).show();
                                                 finish();
                                             }
                                         })

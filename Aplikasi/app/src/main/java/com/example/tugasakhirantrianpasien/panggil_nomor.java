@@ -32,8 +32,8 @@ public class panggil_nomor extends AppCompatActivity {
     private LinearLayout mnextBtn;
     private TextToSpeech textToSpeech;
 
-    String date="";
-    NomorAntrianModel  model ;
+    String date = "";
+    NomorAntrianModel model;
     FirebaseDatabase database;
     DatabaseReference myRef;
     ValueEventListener listener;
@@ -53,43 +53,39 @@ public class panggil_nomor extends AppCompatActivity {
         mplayBtn = findViewById(R.id.btn_play);
         mnextBtn = findViewById(R.id.btn_next);
         database = FirebaseDatabase.getInstance();
-     ;
-        model =new NomorAntrianModel();
+        model = new NomorAntrianModel();
 
 
-        SimpleDateFormat format2= null;
+        SimpleDateFormat format2 = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             format2 = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
         }
-        date= format2.format(new Date());
+        date = format2.format(new Date());
 
         getNomorAntrian(false);
 
-
-        if(textToSpeech ==null){
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int ttsLang = 0;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        ttsLang = textToSpeech.setLanguage(Locale.forLanguageTag("in-ID"));
-                    }
-                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
-                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("TTS", "The Language is not supported!");
+        if (textToSpeech == null) {
+            textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status == TextToSpeech.SUCCESS) {
+                        int ttsLang = 0;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                            ttsLang = textToSpeech.setLanguage(Locale.forLanguageTag("in-ID"));
+                        }
+                        if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                                || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            Log.e("TTS", "The Language is not supported!");
+                        } else {
+                            Log.i("TTS", "Language Supported.");
+                        }
+                        Log.i("TTS", "Initialization success.");
                     } else {
-                        Log.i("TTS", "Language Supported.");
+                        Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
                     }
-                    Log.i("TTS", "Initialization success.");
-                } else {
-                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
         }
-
-
 
         mplayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,35 +98,35 @@ public class panggil_nomor extends AppCompatActivity {
                     if (speechStatus == TextToSpeech.ERROR) {
                         Log.e("TTS", "Error in converting Text to Speech!");
                     }
-                }else {
+                } else {
                     Toast.makeText(panggil_nomor.this, "Tidak ada antrian hari ini", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
         mnextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!model.getNik().isEmpty()){
-                DatabaseReference myRef = database.getReference(date+"/"+
-                        model.getNomor()+"-" +   model.getNik());
-                NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(
-                        model.getNik(),
-                        String.valueOf(model.getNomor()),
-                        model.getNama(),
-                        model.getPoli(),
-                        model.getWaktu(), true
-                );
-                myRef.setValue(nomorAntrianModel, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(@Nullable DatabaseError databaseError,
-                                                   @NonNull DatabaseReference databaseReference) {
-                                getNomorAntrian(true);
+                if (!model.getNik().isEmpty()) {
+                    DatabaseReference myRef = database.getReference(date + "/" +
+                            model.getNomor() + "-" + model.getNik());
+
+                    NomorAntrianModel nomorAntrianModel = new NomorAntrianModel(
+                            model.getNik(),
+                            String.valueOf(model.getNomor()),
+                            model.getNama(),
+                            model.getPoli(),
+                            model.getWaktu(), true
+                    );
+                    myRef.setValue(nomorAntrianModel, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError,
+                                                       @NonNull DatabaseReference databaseReference) {
+                                    getNomorAntrian(true);
+                                }
                             }
-                        }
-                );
-                }else {
+                    );
+                } else {
                     Toast.makeText(panggil_nomor.this, "Tidak ada antrian hari ini", Toast.LENGTH_SHORT).show();
                 }
 
@@ -144,53 +140,47 @@ public class panggil_nomor extends AppCompatActivity {
         disConnectReailtimeDB();
     }
 
-    private void disConnectReailtimeDB(){
+    private void disConnectReailtimeDB() {
 
         if (myRef != null && listener != null) {
             myRef.removeEventListener(listener);
         }
     }
 
-    boolean isfound=false;
+    boolean isfound = false;
 
-    private void getNomorAntrian(final boolean useSound){
-        isfound=false;
+    private void getNomorAntrian(final boolean useSound) {
+        isfound = false;
         myRef = database.getReference(date);
 
-        listener = myRef. addValueEventListener(new ValueEventListener() {
+        listener = myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                    if (userSnapshot.hasChild("status")){
-                    if (userSnapshot.getChildrenCount() > 5) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    if (userSnapshot.hasChild("status")) {
+                        if (userSnapshot.getChildrenCount() > 5) {
+                            if (userSnapshot.child("status").getValue().toString().equals("false")) {
+                                isfound = true;
+                                model = new NomorAntrianModel(
+                                        userSnapshot.child("nik").getValue().toString(),
+                                        userSnapshot.child("nomor").getValue().toString(),
+                                        userSnapshot.child("nama").getValue().toString(),
+                                        userSnapshot.child("poli").getValue().toString(),
+                                        userSnapshot.child("waktu").getValue().toString(),
+                                        Boolean.getBoolean(userSnapshot.child("status").getValue().toString())
+                                );
+                                mNomorAntrian.setText(model.getNomor());
 
-//                        for (DataSnapshot snapshot:  userSnapshot.getChildren()) {
-                            Log.d("aaa", "onDataChange: ");
-
-                                if (userSnapshot.child("status").getValue().toString().equals("false")) {
-                                    isfound = true;
-                                    model = new NomorAntrianModel(
-                                            userSnapshot.child("nik").getValue().toString(),
-                                            userSnapshot.child("nomor").getValue().toString(),
-                                            userSnapshot.child("nama").getValue().toString(),
-                                            userSnapshot.child("poli").getValue().toString(),
-                                            userSnapshot.child("waktu").getValue().toString(),
-                                            Boolean.getBoolean(userSnapshot.child("status").getValue().toString())
-                                    );
-                                    mNomorAntrian.setText(model.getNomor());
-
-                                    if (useSound){
-                                        mplayBtn.performClick();
-                                    }
-                                    break;
+                                if (useSound) {
+                                    mplayBtn.performClick();
                                 }
-//                            }
-
+                                break;
+                            }
                         }
                     }
                 }
 
-                if (!isfound){
+                if (!isfound) {
                     Toast.makeText(panggil_nomor.this, "Tidak ada antrian lagi", Toast.LENGTH_SHORT).show();
                 }
                 disConnectReailtimeDB();
@@ -201,7 +191,5 @@ public class panggil_nomor extends AppCompatActivity {
                 disConnectReailtimeDB();
             }
         });
-
-
     }
 }
