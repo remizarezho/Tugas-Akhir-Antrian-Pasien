@@ -1,5 +1,6 @@
 package com.example.tugasakhirantrianpasien;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemS
     private EditText editSenkam;
     private EditText editJumat;
     private EditText editSabtu;
+    boolean isUpdate = false;
 
     Spinner spinner;
 
@@ -135,9 +138,9 @@ public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemS
             return;
         }
 
-        CollectionReference dbPelayanan = db.collection("pelayanan");
+        final CollectionReference dbPelayanan = db.collection("pelayanan");
 
-        Pelayanan pelayanan = new Pelayanan(
+        final Pelayanan pelayanan = new Pelayanan(
                 iddokter,
                 namadokter,
                 senkam,
@@ -148,20 +151,60 @@ public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemS
 
         Log.d("", pelayanan.toString());
 
-        dbPelayanan.add(pelayanan)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(DetailPoli.this, "Akun Ditambahkan", Toast.LENGTH_LONG).show();
-                        finish();
+//        dbPelayanan.add(pelayanan)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(DetailPoli.this, "Akun Ditambahkan", Toast.LENGTH_LONG).show();
+//                        finish();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(DetailPoli.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//                });
+
+
+
+        dbPelayanan.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.contains("poli") && document.get("poli").toString().equals(spinner.getSelectedItem().toString())){
+                                isUpdate = true;
+                                Toast.makeText(DetailPoli.this, "Informasi telah di perbaharui",
+                                        Toast.LENGTH_LONG).show();
+                                dbPelayanan.document(document.getId()).set(pelayanan, SetOptions.merge());
+                                finish();
+                        }
+
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DetailPoli.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    if (!isUpdate) {//insertdata
+                        //ngesafe ke firebase nya
+                        dbPelayanan.add(pelayanan)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(DetailPoli.this, "Informasi telah di tambahkan",
+                                                Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(DetailPoli.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                     }
-                });
+
+                }
+            }
+        });
     }
 
     @Override
