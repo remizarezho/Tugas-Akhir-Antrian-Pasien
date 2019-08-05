@@ -151,23 +151,6 @@ public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemS
 
         Log.d("", pelayanan.toString());
 
-//        dbPelayanan.add(pelayanan)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(DetailPoli.this, "Akun Ditambahkan", Toast.LENGTH_LONG).show();
-//                        finish();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(DetailPoli.this, e.getMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//                });
-
-
-
         dbPelayanan.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -180,10 +163,9 @@ public class DetailPoli extends AppCompatActivity implements AdapterView.OnItemS
                                 dbPelayanan.document(document.getId()).set(pelayanan, SetOptions.merge());
                                 finish();
                         }
-
                     }
 
-                    if (!isUpdate) {//insertdata
+                    if (!isUpdate) {//databaru
                         //ngesafe ke firebase nya
                         dbPelayanan.add(pelayanan)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

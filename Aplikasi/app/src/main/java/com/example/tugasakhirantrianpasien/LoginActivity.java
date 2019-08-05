@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,6 +39,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -76,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private TextView mSignUp;
+    private TextView mKonten;
     private RelativeLayout relativeProgress;
     private Button mSignIn;
     private EditText email;
@@ -133,6 +136,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         progressBar2 = findViewById(R.id.progressbar_login);
+
+        mKonten = findViewById(R.id.tvKontenLogin);
+        getData();
 
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -196,6 +202,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
             }
+        });
+    }
+
+    private void getData() {
+        final CollectionReference dbAkun = db.collection("informasi");
+        dbAkun.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    final ArrayList<String> data = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        data.add(document.getData().get("konten").toString());
+                        mKonten.setText(document.getData().get("konten").toString());
+                    }
+
+                } else {
+
+                }
+            }
+
         });
     }
 

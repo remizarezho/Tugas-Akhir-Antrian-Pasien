@@ -1,6 +1,7 @@
 package com.example.tugasakhirantrianpasien;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -96,15 +97,18 @@ class LihatDataPasien2 extends RecyclerView.Adapter<LihatDataPasien2.ViewHolder>
 
                         for (int i = 0; i < akunwes.size(); i++) {
                             if (akunwes.get(i).getNama().equals(clickedDataItem)) {
+                                Intent lihatData = new Intent(context, tampil_akun.class).
+                                        putExtra("nik", akunwes.get(i).getNik());
+                                context.startActivity(lihatData);
 
-                                visible = true;
-                                Toast.makeText(v.getContext(), "You clicked " + clickedDataItem, Toast.LENGTH_SHORT).show();
-                                onButtonShowPopupWindowClick(relativeTambahDataPasien, clickedDataItem, akunwes.get(i));
+//                                visible = true;
+//                                Toast.makeText(v.getContext(), "You clicked " + clickedDataItem, Toast.LENGTH_SHORT).show();
+//                                onButtonShowPopupWindowClick(relativeTambahDataPasien, clickedDataItem, akunwes.get(i));
                                 break;
                             }
                         }
                         if (!visible) {
-                            Toast.makeText(v.getContext(), "Tidak ada data pasien", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }

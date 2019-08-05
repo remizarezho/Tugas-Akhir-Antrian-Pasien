@@ -31,8 +31,6 @@
 
     </RelativeLayout>
 
-
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -48,6 +46,26 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:background="@drawable/gradientbackground">
+                <android.support.v7.widget.CardView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tvKontenLogin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="19dp"
+                            android:hint="informasi"
+                            android:layout_toRightOf="@id/imageJudul"
+                            android:textAlignment="center"/>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

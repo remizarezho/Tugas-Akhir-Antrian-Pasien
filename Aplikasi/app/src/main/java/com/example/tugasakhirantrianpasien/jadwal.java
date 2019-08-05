@@ -96,6 +96,7 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
         month = c.get(Calendar.MONTH);
         day = c.get(Calendar.DAY_OF_MONTH);
 
+
         if (tools.getSharedPreferenceString(this, "level", "").equals("0")) {
             btnLihatNomor.setVisibility(View.GONE);
         }
@@ -171,6 +172,7 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 myRefdbRealtime = database.getReference(date1.getText().toString());
+
 
 //                Read from the database
                 listener = myRefdbRealtime.addValueEventListener(new ValueEventListener() {
@@ -308,6 +310,66 @@ public class jadwal extends AppCompatActivity implements AdapterView.OnItemSelec
                         }
                     }
                 });
+
+
+
+        SimpleDateFormat format2= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            format2 =new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.forLanguageTag("in"));
+        }
+        String date= format2.format(new Date());
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRefdbRealtime = database.getReference(date);
+
+        listener = myRefdbRealtime.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean isExecute = true;
+                if (linearPasien.getVisibility() == View.VISIBLE) {
+                    nama = jadwal.this.nama;
+                    if (jadwal.this.bpjs.isEmpty()) {
+                        id = jadwal.this.nik;
+                    } else {
+                        id = jadwal.this.bpjs;
+                    }
+                } else {
+                    if (tools.getSharedPreferenceString(jadwal.this, "bpjs", "").isEmpty()) {
+                        id = tools.getSharedPreferenceString(jadwal.this, "nik", "");
+                    } else {
+                        id = tools.getSharedPreferenceString(jadwal.this, "bpjs", "");
+                    }
+                    nama = tools.getSharedPreferenceString(jadwal.this, "nama", "");
+                }
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.getChildrenCount() > 0) {
+                            Log.d("aaa", "onDataChange: ");
+
+                            if (snapshot.child("nik").getValue().toString().equals(id) &&
+                                    snapshot.child("status").getValue().toString().equals("false")) {
+                                isExecute = false;
+                            }
+                        }
+                    }
+
+                    if (isExecute) {
+                        btnLihatNomor.setVisibility(View.GONE);
+                        disConnectReailtimeDB();
+                    } else {
+                        btnLihatNomor.setVisibility(View.VISIBLE);
+                        disConnectReailtimeDB();
+                        return;
+                    }
+                disConnectReailtimeDB();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                disConnectReailtimeDB();
+            }
+        });
     }
 
     boolean hariiniusai = false;

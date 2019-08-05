@@ -33,8 +33,6 @@ public class LihatDataPasien extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     RelativeLayout relativeLihatDataPasien;
 
-    private ImageView btnEditPas2;
-
     private FirebaseFirestore db;
     List<Akun> akunwes = new ArrayList<>();
 
